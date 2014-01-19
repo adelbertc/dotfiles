@@ -7,7 +7,7 @@ do
 done
 
 # bash prompt
-PROMPT_COMMAND='__git_ps1 "\w" "\nlocal ☯ "'
+PS1='\w$(__git_ps1 " : %s")\nlocal ☯ '
 
 # vi editing on command line
 set -o vi
