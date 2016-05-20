@@ -13,6 +13,10 @@ export TERM="xterm-256color"
 set -o vi
 
 # Source local bashrc if it exists
-if [ -f ./.bashrc_aux ]; then
-    . ./.bashrc_aux
+CURRENT_DIR=.
+AUX_FILE=.bashrc_aux
+AUX_FILE_PATH=${CURRENT_DIR}/${AUX_FILE}
+
+if [ -f ${AUX_FILE_PATH} ]; then
+  . ${AUX_FILE_PATH}
 fi
