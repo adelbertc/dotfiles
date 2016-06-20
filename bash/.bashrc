@@ -13,7 +13,7 @@ export TERM="xterm-256color"
 set -o vi
 
 # Source local bashrc if it exists
-CURRENT_DIR=.
+CURRENT_DIR=${HOME}
 AUX_FILE=.bashrc_aux
 AUX_FILE_PATH=${CURRENT_DIR}/${AUX_FILE}
 
