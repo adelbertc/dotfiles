@@ -30,15 +30,20 @@ let g:airline_right_sep=""
 let g:airline_right_alt_sep="|"
 
 " arrow keys disable
-nnoremap <right> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <up> <nop>
+nnoremap <up>     <nop>
+nnoremap <down>   <nop>
+nnoremap <left>   <nop>
+nnoremap <right>  <nop>
 
-vnoremap <right> <nop>
-vnoremap <down> <nop>
-vnoremap <left> <nop>
-vnoremap <up> <nop>
+inoremap <up>     <nop>
+inoremap <down>   <nop>
+inoremap <left>   <nop>
+inoremap <right>  <nop>
+
+vnoremap <up>     <nop>
+vnoremap <down>   <nop>
+vnoremap <left>   <nop>
+vnoremap <right>  <nop>
 
 " brace completion
 set showmatch
@@ -69,9 +74,6 @@ nnoremap <leader>v :CtrlP<Space>
 let g:deoplete#enable_at_startup=1
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-i>"
 
-" grep
-" nnoremap <leader>t :silent execute "grep! -R " . shellescape(expand("(trait\|object\|class\|def\|val\|var) <cWORD>")) . " src"<cr>:copen<cr>
-
 " horizontal split splits below
 set splitbelow
 
@@ -84,6 +86,7 @@ set autoindent
 
 " line numbers
 set number
+set relativenumber
 
 " map <C-w>w (switch buffer focus) to something nicer
 nnoremap <leader>w <C-w>w
@@ -110,9 +113,9 @@ set splitright
 nnoremap <leader>s :sp<cr>
 set splitbelow
 
-" sarsi
+" quickfix
 let sarsivim = 'sarsi-nvim'
-if (executable(sarsivim))
+if (executable(sarsivim) && has("nvim"))
   call rpcstart(sarsivim)
 endif
 nnoremap <leader>l :cfirst<cr>
