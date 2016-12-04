@@ -11,8 +11,11 @@ endfunction
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
 Plug 'scrooloose/nerdtree'
+Plug 'godlygeek/tabular'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
+
+Plug 'idris-hackers/idris-vim'
 
 " Scala plugins
 Plug 'derekwyatt/vim-scala'
@@ -21,6 +24,8 @@ call plug#end()
 
 " Leader key
 let mapleader = ","
+
+set cpoptions+=$
 
 " airline
 set laststatus=2
@@ -88,8 +93,14 @@ set autoindent
 set number
 set relativenumber
 
-" map <C-w>w (switch buffer focus) to something nicer
-nnoremap <leader>w <C-w>w
+" mappings
+" switch buffer
+nnoremap <leader>w <C-w>
+
+inoremap <esc> <nop>
+inoremap jk <esc>
+vnoremap <esc> <nop>
+vnoremap jk <esc>
 
 " mouse
 set mouse-=a
@@ -104,7 +115,10 @@ function! NERDTreeToggleFind()
   endif
 endfunction
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup nerdtree_startup
+  autocmd!
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup END
 nnoremap <leader>c :call NERDTreeToggleFind()<cr>
 
 " panes
@@ -121,6 +135,12 @@ endif
 nnoremap <leader>l :cfirst<cr>
 nnoremap <leader>f :cnext<cr>
 nnoremap <leader>g :cprevious<cr>
+" set errorformat=%E\ %#[error]\ %#%f:%l:\ %m,%-Z\ %#[error]\ %p^,%-C\ %#[error]\ %m
+" set errorformat+=,%-G%.%#
+" noremap <silent> <Leader>l :cf /tmp/sbt.quickfix<CR>
+" noremap <silent> <Leader>f :cn<CR>
+" noremap <silent> <leader>g :cp<CR>
+" noremap <silent> <Leader>q  :ccl<CR>
 
 " show title
 set title
@@ -131,6 +151,10 @@ colorscheme solarized
 syntax on
 set background=dark
 
+" tabular
+vnoremap a= :Tabularize /=><CR>
+vnoremap a, :Tabularize /<-<CR>
+
 " utf-8 ftw
 set encoding=utf-8
 
@@ -138,11 +162,18 @@ set encoding=utf-8
 highlight ExtraWhitespace ctermbg=red guibg=red
 
 match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+augroup extra_whitespace
+  autocmd!
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+  autocmd BufWinLeave * call clearmatches()
+augroup END
 
 " wrap textlines
 set colorcolumn=121
 set textwidth=120
+
+" NERDTree separator
+set fillchars=vert:\|
+highlight VertSplit cterm=NONE ctermfg=black ctermbg=NONE
