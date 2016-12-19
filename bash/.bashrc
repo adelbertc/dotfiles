@@ -1,22 +1,36 @@
-PS1='\w$(__git_ps1 " : %s")\nlocal ☯ '
+if [ ${__git_ps1} ]; then
+  PS1='\w$(__git_ps1 " [%s]") λ '
+else
+  PS1='\w λ '
+fi
 
-alias grep="grep --color=auto"
+# Source local bashrc if it exists
+[ -f ~/.bash_private ] && source ~/.bash_private
 
-alias ls="ls -GF"
+# Colors for LS and Grep
+export CLICOLOR=1 # LS Color
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;32'
 
-alias tma="tmux attach -t"
-
-export EDITOR="nvim"
-
-export TERM="xterm-256color"
+# Use (N)Vim as default editor
+if hash nvim 2>/dev/null;
+then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
 
 set -o vi
 
-# Source local bashrc if it exists
-CURRENT_DIR=${HOME}
-AUX_FILE=.bashrc_aux
-AUX_FILE_PATH=${CURRENT_DIR}/${AUX_FILE}
+# ------------------------------------------------------
+#            Command Aliases / Functions
+# ------------------------------------------------------
+alias tma="tmux attach -t"
 
-if [ -f ${AUX_FILE_PATH} ]; then
-  . ${AUX_FILE_PATH}
+# ------------------------------------------------------
+#            OSX Only
+# ------------------------------------------------------
+if [ ${OSTYPE} == "darwin"* ]; then
+  export HOMEBREW_NO_ANALYTICS=1
+  export TERM="xterm-256color"
 fi
