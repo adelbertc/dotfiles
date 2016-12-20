@@ -1,7 +1,7 @@
-if [ ${__git_ps1} ]; then
-  PS1='\w$(__git_ps1 " [%s]") λ '
+if [ -n ${__git_ps1} ]; then
+  PS1='\[\e[0;36m\]\w\[\e[0;32m\]$(__git_ps1 " [%s]") \[\e[0;31m\]λ \[\e[0m\]'
 else
-  PS1='\w λ '
+  PS1='\[\e[0;36m\]\w \[\e[0;31m\]λ \[\e[0m\]'
 fi
 
 # Source local bashrc if it exists
@@ -30,7 +30,8 @@ alias tma="tmux attach -t"
 # ------------------------------------------------------
 #            OSX Only
 # ------------------------------------------------------
-if [ ${OSTYPE} == "darwin"* ]; then
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+  alias tracelinks="perl -MCwd -le 'print Cwd::abs_path(shift)'"
   export HOMEBREW_NO_ANALYTICS=1
   export TERM="xterm-256color"
 fi
