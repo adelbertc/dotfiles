@@ -6,13 +6,8 @@ call plug#begin('~/.config/nvim/plugged')
 " General plugins
 Plug 'altercation/vim-colors-solarized'
 
-if executable("fzf")
-  if has("mac") || has("macunix")
-    " Assume Homebrew installation
-    Plug '/usr/local/opt/fzf'
-  endif
-  Plug 'junegunn/fzf.vim'
-endif
+Plug 'junegunn/fzf', { 'dir': '~/.fzf-vim', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 function! DoRemote(arg)
   UpdateRemotePlugins
@@ -158,7 +153,12 @@ nnoremap <leader>g :cprevious<cr>
 " syntax {{{
 " syntax highlighting
 set t_Co=256
-colorscheme solarized
+
+" If this is not an SSH session
+if strlen($SSH_CLIENT) == 0
+  colorscheme solarized
+endif
+
 syntax on
 set background=dark
 
