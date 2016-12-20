@@ -1,5 +1,9 @@
-if [ -n ${__git_ps1} ]; then
+if [ -n ${__git_ps1} ] && [ -n "${SSH_CLIENT}" ]; then
+  PS1='\[\e[0;36m\]\h : \w\[\e[0;32m\]$(__git_ps1 " [%s]") \[\e[0;31m\]λ \[\e[0m\]'
+elif [ -n ${__git_ps1} ]; then
   PS1='\[\e[0;36m\]\w\[\e[0;32m\]$(__git_ps1 " [%s]") \[\e[0;31m\]λ \[\e[0m\]'
+elif [ -n "${SSH_CLIENT}" ]; then
+  PS1='\[\e[0;36m\]\h : \w \[\e[0;31m\]λ \[\e[0m\]'
 else
   PS1='\[\e[0;36m\]\w \[\e[0;31m\]λ \[\e[0m\]'
 fi
