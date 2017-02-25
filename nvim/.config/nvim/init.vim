@@ -19,10 +19,8 @@ Plug 'godlygeek/tabular'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 
-Plug 'idris-hackers/idris-vim'
-
 " Scala plugins
-Plug 'derekwyatt/vim-scala'
+Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 
 call plug#end()
 " }}}
@@ -137,7 +135,12 @@ nnoremap <leader>c :call NERDTreeToggleFind()<cr>
 
 " tooling {{{
 " FZF
-let $FZF_DEFAULT_COMMAND = 'find * -type f -not -path "*/target/*"'
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --no-messages'
+else
+  let $FZF_DEFAULT_COMMAND = 'find * -type f -not -path "*/target/*"'
+endif
+
 nnoremap <leader>v :Files<cr>
 
 " quickfix
