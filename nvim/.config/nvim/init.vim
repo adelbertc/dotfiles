@@ -16,8 +16,19 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
 Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
+
+" Haskell plugins
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'benekastah/neomake', { 'for': 'haskell' }
+Plug 'Shougo/vimproc.vim', { 'do': 'make', 'for': 'haskell'}
+Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+
+" Nix plugins
+Plug 'LnL7/vim-nix', { 'for': 'nix' }
 
 " Scala plugins
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
@@ -143,6 +154,22 @@ endif
 
 nnoremap <leader>v :Files<cr>
 
+" ghcmod-vim
+nnoremap <silent> <leader>ht :GhcModType<cr>
+nnoremap <silent> <leader>hs :GhcModSplitFunCase<cr>
+
+" Neomake
+" Run Neomake on save for Haskell files
+augroup NeomakeHaskell
+  autocmd!
+  autocmd! BufWritePost *.hs Neomake
+augroup END
+
+augroup NeomakeSolarized
+  autocmd!
+  autocmd ColorScheme * hi SignColumn ctermbg=NONE
+augroup END
+
 " quickfix
 let sarsivim = 'sarsi-nvim'
 if executable(sarsivim) && has("nvim")
@@ -167,6 +194,9 @@ set background=dark
 
 " highlight dangling whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
+
+" .sbt is Scala highlighted
+au BufRead,BufNewFile *.sbt set filetype=scala
 
 match ExtraWhitespace /\s\+$/
 augroup extra_whitespace
