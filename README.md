@@ -5,5 +5,11 @@ Intended to be used with `stow`.
 Usage example:
 
 ```
-$ stow nvim -t /Users/adelbertc
+$ stow nvim --target /Users/adelbertc
+```
+
+To undo:
+
+```
+$ stow --delete nvim --target /Users/adelbertc
 ```
