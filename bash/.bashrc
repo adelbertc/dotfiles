@@ -1,15 +1,15 @@
-if [ -n ${__git_ps1} ] && [ -n "${SSH_CLIENT}" ]; then
-  PS1='\[\e[0;36m\]\h : \w\[\e[0;32m\]$(__git_ps1 " [%s]") \[\e[0;31m\]⊢ \[\e[0m\]'
-elif [ -n ${__git_ps1} ]; then
-  PS1='\[\e[0;36m\]\w\[\e[0;32m\]$(__git_ps1 " [%s]") \[\e[0;31m\]⊢ \[\e[0m\]'
-elif [ -n "${SSH_CLIENT}" ]; then
-  PS1='\[\e[0;36m\]\h : \w \[\e[0;31m\]⊢ \[\e[0m\]'
-else
-  PS1='\[\e[0;36m\]\w \[\e[0;31m\]⊢ \[\e[0m\]'
-fi
+PS1='\[\e[0;36m\]\w\[\e[0;32m\]$(maybeGitBranch) \[\e[0;31m\]⊢ \[\e[0m\]'
 
-# Source local bashrc if it exists
-[ -f ~/.bash_private ] && source ~/.bash_private
+maybeGitBranch () {
+  if hash __git_ps1 2>/dev/null; then
+    echo "$(__git_ps1 " [%s]")"
+  else
+    echo ""
+  fi
+}
+
+# Source local bash_private if it exists
+[[ -f ~/.bash_private ]] && source ~/.bash_private
 
 # Colors for LS and Grep
 export CLICOLOR=1 # LS Color
@@ -17,8 +17,7 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
 # Use (N)Vim as default editor
-if hash nvim 2>/dev/null;
-then
+if hash nvim 2>/dev/null; then
   export EDITOR=nvim
 else
   export EDITOR=vim
@@ -31,10 +30,9 @@ set -o vi
 # ------------------------------------------------------
 
 # ------------------------------------------------------
-#            OSX Only
+#            macOS Only
 # ------------------------------------------------------
 if [[ "${OSTYPE}" == "darwin"* ]]; then
   alias tracelinks="perl -MCwd -le 'print Cwd::abs_path(shift)'"
   export HOMEBREW_NO_ANALYTICS=1
-  export TERM="xterm-256color"
 fi
