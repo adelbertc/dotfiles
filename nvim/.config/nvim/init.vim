@@ -14,17 +14,14 @@ function! DoRemote(arg)
 endfunction
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
+Plug 'benekastah/neomake'
 Plug 'scrooloose/nerdtree'
-Plug 'godlygeek/tabular'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 
 " Haskell plugins
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-Plug 'benekastah/neomake', { 'for': 'haskell' }
-Plug 'Shougo/vimproc.vim', { 'do': 'make', 'for': 'haskell'}
-Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 
 " Nix plugins
@@ -154,15 +151,24 @@ endif
 
 nnoremap <leader>v :Files<cr>
 
-" ghcmod-vim
-nnoremap <silent> <leader>ht :GhcModType<cr>
-nnoremap <silent> <leader>hs :GhcModSplitFunCase<cr>
-
-" Neomake
-" Run Neomake on save for Haskell files
-augroup NeomakeHaskell
+augroup HaskellStuff
   autocmd!
-  autocmd! BufWritePost *.hs Neomake
+
+  autocmd! BufWritePost * Neomake!
+
+  autocmd FileType haskell setlocal makeprg=ghc-mod\ check\ %
+  autocmd FileType haskell setlocal efm=%-G%\\s%#,
+                                       \%f:%l:%c:%trror:\ %m,
+                                       \%f:%l:%c:%tarning:\ %m,
+                                       \%f:%l:%c:\ %trror:\ %m,
+                                       \%f:%l:%c:\ %tarning:\ %m,
+                                       \%E%f:%l:%c:%m,
+                                       \%E%f:%l:%c:,
+                                       \%Z%m'
+
+  " Use neco-ghc for omnicompletion
+  let g:haskellmode_completion_ghc = 0
+  autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 augroup END
 
 augroup NeomakeSolarized

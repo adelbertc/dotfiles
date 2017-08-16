@@ -8,9 +8,6 @@ maybeGitBranch () {
   fi
 }
 
-# Source local bash_private if it exists
-[[ -f ~/.bash_private ]] && source ~/.bash_private
-
 # Colors for LS and Grep
 export CLICOLOR=1 # LS Color
 export GREP_OPTIONS='--color=auto'
@@ -36,3 +33,6 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
   alias tracelinks="perl -MCwd -le 'print Cwd::abs_path(shift)'"
   export HOMEBREW_NO_ANALYTICS=1
 fi
+
+# Source local .bash_private if it exists
+[[ -f ~/.bash_private ]] && source ~/.bash_private
