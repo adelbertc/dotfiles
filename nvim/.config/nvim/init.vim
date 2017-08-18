@@ -1,7 +1,7 @@
 " vim:foldmethod=marker:foldlevel=0
 
 " plugins {{{
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " General plugins
 Plug 'altercation/vim-colors-solarized'
@@ -9,10 +9,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf-vim', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'benekastah/neomake'
 Plug 'scrooloose/nerdtree'
@@ -23,6 +20,15 @@ Plug 'tpope/vim-fugitive'
 " Haskell plugins
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+
+"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/echodoc.vim'
+
+"set hidden
+"let g:LanguageClient_autoStart = 1
+"nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+"
+"let g:LanguageClient_serverCommands = { 'haskell': ['hie', '--lsp'] }
 
 " Nix plugins
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
