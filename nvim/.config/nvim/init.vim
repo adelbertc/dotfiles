@@ -20,15 +20,7 @@ Plug 'tpope/vim-fugitive'
 " Haskell plugins
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
-
-"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'Shougo/echodoc.vim'
-
-"set hidden
-"let g:LanguageClient_autoStart = 1
-"nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-"
-"let g:LanguageClient_serverCommands = { 'haskell': ['hie', '--lsp'] }
+Plug 'owickstrom/neovim-ghci', { 'for': 'haskell' }
 
 " Nix plugins
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
@@ -160,21 +152,15 @@ nnoremap <leader>v :Files<cr>
 augroup HaskellStuff
   autocmd!
 
-  autocmd! BufWritePost * Neomake!
+  autocmd BufWritePost *.hs GhciReload
 
-  autocmd FileType haskell setlocal makeprg=ghc-mod\ check\ %
-  autocmd FileType haskell setlocal efm=%-G%\\s%#,
-                                       \%f:%l:%c:%trror:\ %m,
-                                       \%f:%l:%c:%tarning:\ %m,
-                                       \%f:%l:%c:\ %trror:\ %m,
-                                       \%f:%l:%c:\ %tarning:\ %m,
-                                       \%E%f:%l:%c:%m,
-                                       \%E%f:%l:%c:,
-                                       \%Z%m'
+  autocmd FileType haskell nnoremap <silent> <leader>go :GhciOpen<cr>
+  autocmd FileType haskell nnoremap <silent> <leader>gh :GhciHide<cr>
 
-  " Use neco-ghc for omnicompletion
-  let g:haskellmode_completion_ghc = 0
-  autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+  autocmd FileType haskell nnoremap <silent> <leader>gl :GhciLoadCurrentModule<cr>
+  autocmd FileType haskell nnoremap <silent> <leader>gf :GhciLoadCurrentFile<cr>
+
+  let g:ghci_command = 'cabal repl'
 augroup END
 
 augroup NeomakeSolarized
