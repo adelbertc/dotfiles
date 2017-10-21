@@ -42,12 +42,17 @@ let mapleader = ","
 set cpoptions+=$
 set encoding=utf-8
 set incsearch
+set lazyredraw
 set mouse-=a
 set nocompatible
 set nohlsearch
 set number
 set relativenumber
 set title
+
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
 
 nnoremap <leader>w <C-w>
 
@@ -107,11 +112,11 @@ inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-i>"
 
 " formatting {{{
 " indentation
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set autoindent
+set tabstop=2     " visual spaces per tab
+set softtabstop=2 " number of spaces inserted when you hit tab
+set expandtab     " tabs are spaces
+set shiftwidth=2  " spaces for >> and automatic indentation
+set autoindent    " start newline at same indentation as previous
 
 " tabular
 vnoremap a= :Tabularize /=><CR>
