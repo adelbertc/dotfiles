@@ -11,6 +11,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+Plug 'junegunn/goyo.vim'
 Plug 'benekastah/neomake'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
@@ -24,6 +25,9 @@ Plug 'owickstrom/neovim-ghci', { 'for': 'haskell' }
 
 " Nix plugins
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
+
+" Rust plugins
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 " Scala plugins
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
@@ -41,6 +45,7 @@ let mapleader = ","
 
 set cpoptions+=$
 set encoding=utf-8
+set guicursor=
 set incsearch
 set lazyredraw
 set mouse-=a
@@ -152,7 +157,9 @@ else
   let $FZF_DEFAULT_COMMAND = 'find * -type f -not -path "*/target/*"'
 endif
 
+" fzf
 nnoremap <leader>v :Files<cr>
+nnoremap ; :Buffers<CR>
 
 augroup HaskellStuff
   autocmd!
