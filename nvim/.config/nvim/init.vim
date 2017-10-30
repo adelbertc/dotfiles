@@ -31,6 +31,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 " Scala plugins
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+Plug 'ensime/ensime-vim', { 'for': 'scala', 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 " }}}
@@ -59,7 +60,7 @@ set title
 nnoremap j gj
 nnoremap k gk
 
-nnoremap <leader>w <C-w>
+nnoremap <leader>w <c-w>
 
 " panes
 nnoremap <leader>d :vsp<cr>
@@ -95,25 +96,25 @@ vnoremap <right>  <nop>
 
 " brace completion {{{
 set showmatch
-inoremap {      {}<Left>
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
+inoremap {      {}<left>
+inoremap {<cr>  {<cr>}<esc>O
+inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<right>" : "}"
 inoremap {}     {}
 
-inoremap (      ()<Left>
-inoremap (<CR>  (<CR>)<Esc>O
-inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap (      ()<left>
+inoremap (<cr>  (<cr>)<esc>O
+inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<right>" : ")"
 inoremap ()     ()
 
-inoremap [      []<Left>
-inoremap [<CR>  [<CR>]<Esc>O
-inoremap <expr> ]  strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
+inoremap [      []<left>
+inoremap [<cr>  [<cr>]<esc>O
+inoremap <expr> ]  strpart(getline('.'), col('.')-1, 1) == "]" ? "\<right>" : "]"
 inoremap []     []
 " }}}
 
 " deoplete
 let g:deoplete#enable_at_startup=1
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-i>"
+inoremap <silent><expr> <tab> pumvisible() ? "\<c-n>" : "\<c-i>"
 
 " formatting {{{
 " indentation
@@ -124,8 +125,8 @@ set shiftwidth=2  " spaces for >> and automatic indentation
 set autoindent    " start newline at same indentation as previous
 
 " tabular
-vnoremap a= :Tabularize /=><CR>
-vnoremap a, :Tabularize /<-<CR>
+vnoremap a= :Tabularize /=><cr>
+vnoremap a, :Tabularize /<-<cr>
 
 " wrap textlines
 set colorcolumn=121
@@ -151,15 +152,17 @@ nnoremap <leader>c :call NERDTreeToggleFind()<cr>
 
 " tooling {{{
 " FZF
-if executable('rg')
-  let $FZF_DEFAULT_COMMAND = 'rg --files --no-messages'
-else
-  let $FZF_DEFAULT_COMMAND = 'find * -type f -not -path "*/target/*"'
+if executable("rg")
+  let $FZF_DEFAULT_COMMAND = "rg --files --no-messages"
 endif
 
-" fzf
 nnoremap <leader>v :Files<cr>
-nnoremap ; :Buffers<CR>
+nnoremap ; :Buffers<cr>
+
+" quickfix
+nnoremap <leader>l :cfirst<cr>
+nnoremap <leader>f :cnext<cr>
+nnoremap <leader>g :cprevious<cr>
 
 augroup HaskellStuff
   autocmd!
@@ -168,26 +171,26 @@ augroup HaskellStuff
 
   autocmd FileType haskell nnoremap <silent> <leader>go :GhciOpen<cr>
   autocmd FileType haskell nnoremap <silent> <leader>gh :GhciHide<cr>
-
   autocmd FileType haskell nnoremap <silent> <leader>gl :GhciLoadCurrentModule<cr>
   autocmd FileType haskell nnoremap <silent> <leader>gf :GhciLoadCurrentFile<cr>
 
-  let g:ghci_command = 'cabal repl'
+  let g:ghci_command = "cabal repl"
+augroup END
+
+augroup ScalaStuff
+  autocmd!
+
+  " .sbt is Scala highlighted
+  autocmd BufRead,BufNewFile *.sbt set filetype=scala
+
+  autocmd BufWritePost *.scala silent :EnTypeCheck
+  autocmd FileType scala nnoremap <leader>t :EnType<cr>
 augroup END
 
 augroup NeomakeSolarized
   autocmd!
   autocmd ColorScheme * hi SignColumn ctermbg=NONE
 augroup END
-
-" quickfix
-let sarsivim = 'sarsi-nvim'
-if executable(sarsivim) && has("nvim")
-  call rpcstart(sarsivim)
-endif
-nnoremap <leader>l :cfirst<cr>
-nnoremap <leader>f :cnext<cr>
-nnoremap <leader>g :cprevious<cr>
 " }}}
 
 " syntax {{{
@@ -204,9 +207,6 @@ set background=dark
 
 " highlight dangling whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
-
-" .sbt is Scala highlighted
-au BufRead,BufNewFile *.sbt set filetype=scala
 
 match ExtraWhitespace /\s\+$/
 augroup extra_whitespace
