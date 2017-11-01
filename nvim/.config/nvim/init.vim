@@ -28,6 +28,7 @@ Plug 'LnL7/vim-nix', { 'for': 'nix' }
 
 " Rust plugins
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 
 " Scala plugins
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
@@ -185,6 +186,15 @@ augroup ScalaStuff
 
   autocmd BufWritePost *.scala silent :EnTypeCheck
   autocmd FileType scala nnoremap <leader>t :EnType<cr>
+augroup END
+
+augroup RustStuff
+  autocmd!
+
+  autocmd FileType rust call neomake#configure#automake("w")
+
+  let g:racer_cmd=$HOME . "/.cargo/bin/racer"
+  autocmd FileType rust nmap <leader>rd <Plug>(rust-doc)
 augroup END
 
 augroup NeomakeSolarized
