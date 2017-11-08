@@ -185,7 +185,9 @@ augroup ScalaStuff
   autocmd BufRead,BufNewFile *.sbt set filetype=scala
 
   autocmd BufWritePost *.scala silent :EnTypeCheck
-  autocmd FileType scala nnoremap <leader>t :EnType<cr>
+  autocmd FileType scala nnoremap <leader>gt :EnType<cr>
+  autocmd FileType scala nnoremap <leader>gd :EnDeclarationSplit<cr>
+  autocmd FileType scala nnoremap <leader>gf :EnDeclaration<cr>
 augroup END
 
 augroup RustStuff
