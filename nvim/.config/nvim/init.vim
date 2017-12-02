@@ -26,6 +26,10 @@ Plug 'owickstrom/neovim-ghci', { 'for': 'haskell' }
 " Nix plugins
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
 
+" Pandoc plugins
+Plug 'vim-pandoc/vim-pandoc' ", { 'for': 'pandoc' }
+Plug 'vim-pandoc/vim-pandoc-syntax' ", { 'for': 'pandoc' }
+
 " Rust plugins
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
@@ -216,6 +220,10 @@ endif
 
 syntax on
 set background=dark
+
+" vim-pandoc
+let g:pandoc#spell#enabled = 0
+let g:pandoc#syntax#codeblocks#embeds#langs = [ "scala" ]
 
 " highlight dangling whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
