@@ -22,7 +22,6 @@ Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
 " Haskell plugins
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'owickstrom/neovim-ghci', { 'for': 'haskell' }
 
 " Nix plugins
@@ -39,6 +38,9 @@ Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 " Scala plugins
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+
+" Experiments
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 " }}}
@@ -171,17 +173,34 @@ nnoremap <leader>l :cfirst<cr>
 nnoremap <leader>f :cnext<cr>
 nnoremap <leader>g :cprevious<cr>
 
+let g:LanguageClient_serverCommands = {
+      \ 'haskell': ['hie', '--lsp']
+      \ }
+
 augroup HaskellStuff
   autocmd!
 
-  autocmd BufWritePost *.hs GhciReload
+  " Experiment with haskell-ide-engine
+  if $USE_HIE ==# "true"
+    let g:LanguageClient_autoStart = 1
+  else
+    let g:ghci_command = "cabal repl"
 
-  autocmd FileType haskell nnoremap <silent> <leader>go :GhciOpen<cr>
-  autocmd FileType haskell nnoremap <silent> <leader>gh :GhciHide<cr>
-  autocmd FileType haskell nnoremap <silent> <leader>gl :GhciLoadCurrentModule<cr>
-  autocmd FileType haskell nnoremap <silent> <leader>gf :GhciLoadCurrentFile<cr>
+    autocmd FileType haskell nnoremap <silent> <leader>gs :GhciStart<cr>
+    autocmd FileType haskell nnoremap <silent> <leader>gk :GhciKill<cr>
+    autocmd FileType haskell nnoremap <silent> <leader>gr :GhciRestart<cr>
 
-  let g:ghci_command = "cabal repl"
+    autocmd FileType haskell nnoremap <silent> <leader>go :GhciOpen<cr>
+    autocmd FileType haskell nnoremap <silent> <leader>gh :GhciHide<cr>
+
+    autocmd FileType haskell map <silent> <leader>gt <Plug>GhciType
+    autocmd FileType haskell map <silent> <leader>gi <Plug>GhciTypeInsert
+
+    autocmd BufWritePost *.hs GhciReload
+
+    autocmd FileType haskell nnoremap <silent> <leader>gl :GhciLoadCurrentModule<cr>
+    autocmd FileType haskell nnoremap <silent> <leader>gf :GhciLoadCurrentFile<cr>
+  endif
 augroup END
 
 augroup ScalaStuff
