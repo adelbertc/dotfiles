@@ -18,6 +18,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+
 " Haskell plugins
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
@@ -36,7 +38,7 @@ Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 
 " Scala plugins
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
-Plug 'ensime/ensime-vim', { 'for': 'scala', 'do': ':UpdateRemotePlugins' }
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 " }}}
