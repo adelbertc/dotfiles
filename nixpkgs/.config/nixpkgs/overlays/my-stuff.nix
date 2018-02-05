@@ -1,6 +1,16 @@
 self: super: {
   personal = {
-    emacs = import ../emacs self super;
+    emacs = self.emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
+      evil
+      flycheck
+      linum-relative
+      projectile
+      solarized-theme
+      use-package
+
+      haskell-mode
+      dante
+    ]));
 
     haskellTools = with self; { inherit cabal-install cabal2nix stack; };
 
