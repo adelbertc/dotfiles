@@ -13,6 +13,8 @@ export CLICOLOR=1 # LS Color
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
+export PATH=~/.config/personal_scripts:$PATH
+
 # Use (N)Vim as default editor
 if hash nvim 2>/dev/null; then
   export EDITOR=nvim
@@ -29,9 +31,11 @@ set -o vi
 # ------------------------------------------------------
 #            macOS Only
 # ------------------------------------------------------
-if [[ "${OSTYPE}" == "darwin"* ]]; then
-  alias tracelinks="perl -MCwd -le 'print Cwd::abs_path(shift)'"
-  export HOMEBREW_NO_ANALYTICS=1
+if [[ "${OSTYPE}" == "darwin"* ]];
+then
+  alias e="emacsclient --alternate-editor=macos-emacs-server --create-frame"
+else
+  alias e="emacsclient --alternate-editor='' --create-frame"
 fi
 
 # Source local .bash_private if it exists

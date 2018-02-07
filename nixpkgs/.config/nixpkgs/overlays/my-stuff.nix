@@ -8,8 +8,12 @@ self: super: {
       solarized-theme
       use-package
 
+      # Haskell
       haskell-mode
       dante
+
+      # Nix
+      nix-mode
     ]));
 
     haskellTools = with self; { inherit cabal-install cabal2nix stack; };
