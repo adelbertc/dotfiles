@@ -14,6 +14,9 @@ self: super: {
 
       # Nix
       nix-mode
+
+      # Scala
+      ensime
     ]));
 
     haskellTools = with self; { inherit cabal-install cabal2nix stack; };

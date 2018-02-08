@@ -10,8 +10,18 @@
 (scroll-bar-mode -1)
 (setq inhibit-startup-screen t)
 
+;; Start Emacs full screen
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 ;; Tabs are evil
 (setq-default indent-tabs-mode nil)
+
+;; Give me brace matching
+(electric-pair-mode 1)
+
+(use-package ensime
+  :config
+  (setq ensime-startup-notification nil))
 
 (use-package evil
   :init
@@ -26,7 +36,6 @@
 (use-package haskell-mode)
 
 (use-package ido
-  :commands (ido-enable-flex-matching ido-everywhere)
   :init
   (setq ido-enable-flex-matching t)
   (setq ido-everywhere t)
@@ -53,7 +62,7 @@
   :bind (:map evil-normal-state-map
               (", v" . projectile-find-file))
   :config
-  (projectile-global-mode))
+  (projectile-global-mode 1))
 
 (use-package solarized-theme
   :config
