@@ -15,8 +15,11 @@ export GREP_COLOR='1;32'
 
 export PATH=~/.config/personal_scripts:$PATH
 
-# Use (N)Vim as default editor
-if hash nvim 2>/dev/null; then
+emacs_cmd="emacsclient --quiet"
+
+if hash emacsclient 2>/dev/null; then
+  export EDITOR="${emacs_cmd}"
+elif hash nvim 2>/dev/null; then
   export EDITOR=nvim
 else
   export EDITOR=vim
@@ -31,11 +34,13 @@ set -o vi
 # ------------------------------------------------------
 #            macOS Only
 # ------------------------------------------------------
-if [[ "${OSTYPE}" == "darwin"* ]];
-then
-  alias e="emacsclient --alternate-editor=macos-emacs-server --create-frame"
-else
-  alias e="emacsclient --alternate-editor='' --create-frame"
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+  alias e="${emacs_cmd}"
+
+  # Start Emacs in a shell named 'shell'
+  emacs_shell="/bin/bash"
+  emacs_shell_name="shell"
+  alias emacs="open ~/.nix-profile/Applications/Emacs.app --args --eval '(ansi-term \"${emacs_shell}\" \"${emacs_shell_name}\")'"
 fi
 
 # Source local .bash_private if it exists

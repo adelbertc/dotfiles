@@ -2,6 +2,8 @@
 (package-initialize)
 (require 'use-package)
 
+(server-start)
+
 ;; Aesthetics
 (add-to-list 'default-frame-alist
              '(font . "Fira Mono-14"))
@@ -59,11 +61,23 @@
   (show-paren-mode))
 
 (use-package projectile
-  :bind (:map evil-normal-state-map
-              (", v" . projectile-find-file))
+  :bind (:map evil-normal-state-map (", l" . projectile-switch-project)
+         :map evil-normal-state-map (", v" . projectile-find-file))
   :config
   (projectile-global-mode 1))
 
 (use-package solarized-theme
   :config
   (load-theme 'solarized-dark t))
+
+;;;;;
+
+(defun my-stuff/term-mode-hook ()
+    ; When in insert mode at the terminal, C-c does what one expects
+    ; Adapted from https://stackoverflow.com/a/34404700
+    (define-key evil-insert-state-local-map (kbd "C-c") 'term-send-raw)
+
+    ; Hide line numbers
+    (linum-mode 0))
+
+(add-hook 'term-mode-hook 'my-stuff/term-mode-hook)
