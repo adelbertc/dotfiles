@@ -1,9 +1,11 @@
 self: super: {
   personal = {
     emacs = self.emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
+      company
       evil
       flycheck
       linum-relative
+      spaceline
       projectile
       solarized-theme
       use-package

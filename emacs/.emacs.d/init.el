@@ -21,6 +21,10 @@
 ;; Give me brace matching
 (electric-pair-mode 1)
 
+(use-package company
+  :init
+  (global-company-mode))
+
 (use-package ensime
   :config
   (setq ensime-startup-notification nil))
@@ -59,6 +63,11 @@
   (setq-default show-paren-when-point-inside-paren t)
   :config
   (show-paren-mode))
+
+(use-package spaceline-config
+  :config
+  (setq powerline-default-separator 'bar)
+  (spaceline-spacemacs-theme))
 
 (use-package projectile
   :bind (:map evil-normal-state-map (", l" . projectile-switch-project)
