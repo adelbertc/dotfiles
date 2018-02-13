@@ -64,12 +64,26 @@
   :config
   (show-paren-mode))
 
+(use-package sbt-mode
+  :after (evil)
+  :bind (:map evil-normal-state-map ("C-d" . evil-scroll-down))
+  :config
+  (evil-ex-define-cmd "sstart" 'sbt-start)
+  (evil-ex-define-cmd "scmd"   'sbt-command)
+
+  (defun custom/sbt-mode-hook ()
+    ; Recover C-d for evil-scroll-down
+    (define-key evil-normal-state-local-map (kbd "C-d") 'evil-scroll-down))
+
+  (add-hook 'sbt-mode-hook 'custom/sbt-mode-hook))
+
 (use-package spaceline-config
   :config
   (setq powerline-default-separator 'bar)
   (spaceline-spacemacs-theme))
 
 (use-package projectile
+  :after (evil)
   :bind (:map evil-normal-state-map (", l" . projectile-switch-project)
          :map evil-normal-state-map (", v" . projectile-find-file))
   :config
@@ -79,9 +93,10 @@
   :config
   (load-theme 'solarized-dark t))
 
-;;;;;
-
-(defun my-stuff/term-mode-hook ()
+(use-package term
+  :after (evil)
+  :config
+  (defun custom/term-mode-hook ()
     ; When in insert mode at the terminal, C-c does what one expects
     ; Adapted from https://stackoverflow.com/a/34404700
     (define-key evil-insert-state-local-map (kbd "C-c") 'term-send-raw)
@@ -89,4 +104,4 @@
     ; Hide line numbers
     (linum-mode 0))
 
-(add-hook 'term-mode-hook 'my-stuff/term-mode-hook)
+  (add-hook 'term-mode-hook 'custom/term-mode-hook))
