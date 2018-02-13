@@ -23,15 +23,15 @@ self: super: {
 
     haskellTools = with self; { inherit cabal-install cabal2nix stack; };
 
+    # ENSIME needs websocket_client and sexpdata, see http://ensime.org/editors/vim/install/
+    neovim = with self; neovim.override { extraPythonPackages = with pythonPackages; [ websocket_client sexpdata ]; };
+
     scalaTools = { inherit (self) sbt; };
 
     tex = { inherit (self.texlive.combined) scheme-full; };
 
     tools = with self; {
-      inherit git nix-repl ripgrep stow;
-
-      # ENSIME needs websocket_client and sexpdata, see http://ensime.org/editors/vim/install/
-      neovim = neovim.override { extraPythonPackages = with pythonPackages; [ websocket_client sexpdata ]; };
+      inherit git nix-repl ripgrep shellcheck stow;
     };
   };
 }
