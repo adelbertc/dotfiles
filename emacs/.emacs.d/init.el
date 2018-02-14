@@ -26,8 +26,13 @@
   (global-company-mode))
 
 (use-package ensime
+  :after (evil)
+  :bind (:map evil-normal-state-map (", e" . ensime-print-errors-at-point))
   :config
-  (setq ensime-startup-notification nil))
+  (setq ensime-startup-notification nil)
+  (evil-ex-define-cmd "estart"    'ensime)
+  (evil-ex-define-cmd "ereload"   'ensime-reload)
+  (evil-ex-define-cmd "eshutdown" 'ensime-shutdown))
 
 (use-package evil
   :init
@@ -66,15 +71,14 @@
 
 (use-package sbt-mode
   :after (evil)
+  :preface
+  (defun custom/sbt-mode-hook ()
+    ; Recover C-d for evil-scroll-down
+    (define-key evil-normal-state-local-map (kbd "C-d") 'evil-scroll-down))
   :bind (:map evil-normal-state-map ("C-d" . evil-scroll-down))
   :config
   (evil-ex-define-cmd "sstart" 'sbt-start)
   (evil-ex-define-cmd "scmd"   'sbt-command)
-
-  (defun custom/sbt-mode-hook ()
-    ; Recover C-d for evil-scroll-down
-    (define-key evil-normal-state-local-map (kbd "C-d") 'evil-scroll-down))
-
   (add-hook 'sbt-mode-hook 'custom/sbt-mode-hook))
 
 (use-package spaceline-config
@@ -95,13 +99,13 @@
 
 (use-package term
   :after (evil)
-  :config
+  :preface
   (defun custom/term-mode-hook ()
-    ; When in insert mode at the terminal, C-c does what one expects
+    ; Send the following keys directly to terminal
     ; Adapted from https://stackoverflow.com/a/34404700
     (define-key evil-insert-state-local-map (kbd "C-c") 'term-send-raw)
-
+    (define-key evil-insert-state-local-map (kbd "C-d") 'term-send-raw)
     ; Hide line numbers
     (linum-mode 0))
-
+  :config
   (add-hook 'term-mode-hook 'custom/term-mode-hook))
