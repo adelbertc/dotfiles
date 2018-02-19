@@ -76,7 +76,8 @@
     ; Recover C-d for evil-scroll-down
     (define-key evil-normal-state-local-map (kbd "C-d") 'evil-scroll-down))
   :bind (:map evil-normal-state-map ("C-d" . evil-scroll-down)
-         :map evil-normal-state-map (", f" . next-error))
+         :map evil-normal-state-map (", f" . next-error)
+         :map evil-normal-state-map (", q" . previous-error))
   :config
   (evil-ex-define-cmd "sstart" 'sbt-start)
   (evil-ex-define-cmd "scmd"   'sbt-command)

@@ -15,7 +15,7 @@ export GREP_COLOR='1;32'
 
 export PATH=~/.config/personal_scripts:$PATH
 
-emacs_cmd="emacsclient --quiet"
+emacs_cmd="emacsclient --quiet --alternate-editor=nvim"
 
 if hash emacsclient 2>/dev/null; then
   export EDITOR="${emacs_cmd}"
