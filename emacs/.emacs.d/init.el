@@ -38,7 +38,8 @@
   :init
   (setq evil-want-C-u-scroll t)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (setq x-select-enable-clipboard nil))
 
 (use-package flycheck
   :init
