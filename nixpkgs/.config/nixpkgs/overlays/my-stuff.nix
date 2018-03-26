@@ -15,6 +15,7 @@ self: super: {
       dante
 
       # Nix
+      nix-buffer
       nix-mode
 
       # Scala

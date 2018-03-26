@@ -23,6 +23,13 @@
   :init
   (global-company-mode))
 
+(use-package dante
+  :after haskell-mode
+  :commands 'dante-mode
+  :init
+  (add-hook 'haskell-mode-hook 'dante-mode)
+  (add-hook 'haskell-mode-hook 'flycheck-mode))
+
 (use-package ensime
   :after (evil)
   :bind (:map evil-normal-state-map (", e" . ensime-print-errors-at-point))
@@ -61,6 +68,9 @@
   (linum-relative-mode))
 
 (use-package nix-mode)
+
+(use-package nix-buffer
+  :commands nix-buffer)
 
 (use-package paren
   :init
