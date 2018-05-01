@@ -4,6 +4,8 @@
 
 (server-start)
 
+(setq tramp-default-method "ssh")
+
 ;; Aesthetics
 (add-to-list 'default-frame-alist
              '(font . "Fira Mono-14"))
@@ -11,6 +13,7 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (setq inhibit-startup-screen t)
+(setq-default show-trailing-whitespace t)
 
 ;; Start Emacs full screen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -28,13 +31,15 @@
 (use-package dante
   :after haskell-mode
   :commands 'dante-mode
-  :init
+  :config
   (add-hook 'haskell-mode-hook 'dante-mode)
   (add-hook 'haskell-mode-hook 'flycheck-mode))
 
 (use-package ensime
   :after (evil)
-  :bind (:map evil-normal-state-map (", e" . ensime-print-errors-at-point))
+  :bind ( ;; Cmd+{C, V} work with the OS clipboard
+         :map evil-insert-state-map ("s-v" . clipboard-yank)
+         :map evil-visual-state-map ("s-c" . clipboard-kill-ring-save))
   :config
   (setq ensime-startup-notification nil)
   (evil-ex-define-cmd "estart"    'ensime)
@@ -52,7 +57,10 @@
   :init
   (global-flycheck-mode))
 
-(use-package haskell-mode)
+; (use-package haskell-mode
+;   :config
+;   (add-hook 'haskell-mode-hook 'flycheck-mode)
+;   (add-hook 'haskell-mode-hook 'interactive-haskell-mode))
 
 (use-package ido
   :init
@@ -73,6 +81,9 @@
 
 (use-package nix-buffer
   :commands nix-buffer)
+;  :config
+;  (add-hook 'find-file-hook 'nix-buffer)
+;  (add-hook 'haskell-interactive-mode-hook 'nix-buffer))
 
 (use-package paren
   :init
@@ -121,5 +132,9 @@
     (define-key evil-insert-state-local-map (kbd "C-d") 'term-send-raw)
     ; Hide line numbers
     (linum-mode 0))
+  (defun custom/create-term (name)
+    (interactive "sEnter terminal name: ")
+    (ansi-term "bash" name))
   :config
-  (add-hook 'term-mode-hook 'custom/term-mode-hook))
+  (add-hook 'term-mode-hook 'custom/term-mode-hook)
+  (evil-ex-define-cmd "term" 'custom/create-term))
