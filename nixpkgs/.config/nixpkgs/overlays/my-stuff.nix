@@ -2,6 +2,7 @@ self: super: {
   personal = {
     emacs = self.emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
       company
+      diminish
       evil
       flycheck
       linum-relative

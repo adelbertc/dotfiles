@@ -25,6 +25,7 @@
 (electric-pair-mode 1)
 
 (use-package company
+  :diminish company-mode
   :init
   (global-company-mode))
 
@@ -34,6 +35,8 @@
   :config
   (add-hook 'haskell-mode-hook 'dante-mode)
   (add-hook 'haskell-mode-hook 'flycheck-mode))
+
+(use-package diminish)
 
 (use-package ensime
   :after (evil)
@@ -51,7 +54,10 @@
   (setq evil-want-C-u-scroll t)
   :config
   (evil-mode 1)
-  (setq x-select-enable-clipboard nil))
+  (setq x-select-enable-clipboard nil)
+  (setq evil-normal-state-tag "NORMAL")
+  (setq evil-insert-state-tag "INSERT")
+  (setq evil-visual-state-tag "VISUAL"))
 
 (use-package flycheck
   :init
@@ -113,6 +119,7 @@
 
 (use-package projectile
   :after (evil)
+  :diminish projectile-mode
   :bind (:map evil-normal-state-map (", l" . projectile-switch-project)
          :map evil-normal-state-map (", v" . projectile-find-file))
   :config
@@ -138,3 +145,9 @@
   :config
   (add-hook 'term-mode-hook 'custom/term-mode-hook)
   (evil-ex-define-cmd "term" 'custom/create-term))
+
+(use-package undo-tree
+  :diminish undo-tree-mode)
+
+(use-package yasnippet
+  :diminish yas-minor-mode)
