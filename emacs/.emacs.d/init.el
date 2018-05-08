@@ -40,6 +40,7 @@
 
 (use-package ensime
   :after (evil)
+  :diminish ensime-mode
   :bind ( ;; Cmd+{C, V} work with the OS clipboard
          :map evil-insert-state-map ("s-v" . clipboard-yank)
          :map evil-visual-state-map ("s-c" . clipboard-kill-ring-save))
@@ -114,8 +115,21 @@
 
 (use-package spaceline-config
   :config
-  (setq powerline-default-separator 'bar)
-  (spaceline-spacemacs-theme))
+  (setq-default
+    mode-line-format '("%e" (:eval (spaceline-ml-main)))
+    powerline-default-separator 'wave
+    powerline-scale 1.3
+    powerline-height (truncate (* 1.3 (frame-char-height))))
+  (spaceline-install
+    'main
+    '((evil-state)
+      (version-control :when active)
+      (projectile-root :when active)
+      (buffer-id))
+    '((remote-host :when active)
+      ((flycheck-error flycheck-warning flycheck-info) :when active)
+      (major-mode :face highlight-face)
+      ((line column) :separator ":"))))
 
 (use-package projectile
   :after (evil)
@@ -127,6 +141,8 @@
 
 (use-package solarized-theme
   :config
+  (setq solarized-high-contrast-mode-line t
+        x-underline-at-descent-line t)
   (load-theme 'solarized-dark t))
 
 (use-package term

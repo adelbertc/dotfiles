@@ -1,27 +1,33 @@
 self: super: {
   personal = {
-    emacs = self.emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
-      company
-      diminish
-      evil
-      flycheck
-      linum-relative
-      spaceline
-      projectile
-      solarized-theme
-      use-package
+    emacs =
+      let
+        macEmacsWithPackages = self.emacsPackagesNg.overrideScope (esuper: eself: {
+          emacs = self.emacs25Macport;
+        });
+      in
+        macEmacsWithPackages.emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
+          company
+          diminish
+          evil
+          flycheck
+          linum-relative
+          spaceline
+          projectile
+          solarized-theme
+          use-package
 
-      # Haskell
-      haskell-mode
-      dante
+          # Haskell
+          haskell-mode
+          dante
 
-      # Nix
-      nix-buffer
-      nix-mode
+          # Nix
+          nix-buffer
+          nix-mode
 
-      # Scala
-      ensime
-    ]));
+          # Scala
+          ensime
+        ]));
 
     haskellTools = with self; { inherit cabal-install cabal2nix stack; };
 
