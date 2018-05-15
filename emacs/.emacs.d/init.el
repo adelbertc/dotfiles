@@ -9,7 +9,11 @@
 ;; Aesthetics
 (add-to-list 'default-frame-alist
              '(font . "Fira Mono-14"))
+
 (setq frame-title-format "")
+(set-frame-parameter (selected-frame) 'name nil)
+(set-frame-parameter (selected-frame) 'title nil)
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -36,7 +40,7 @@
 (use-package dante
   :after haskell-mode
   :commands 'dante-mode
-  :config
+  :init
   (add-hook 'haskell-mode-hook 'dante-mode)
   (add-hook 'haskell-mode-hook 'flycheck-mode))
 
@@ -66,11 +70,6 @@
   :init
   (global-flycheck-mode))
 
-; (use-package haskell-mode
-;   :config
-;   (add-hook 'haskell-mode-hook 'flycheck-mode)
-;   (add-hook 'haskell-mode-hook 'interactive-haskell-mode))
-
 (use-package ido
   :init
   (setq ido-enable-flex-matching t)
@@ -87,12 +86,6 @@
   (linum-relative-mode))
 
 (use-package nix-mode)
-
-(use-package nix-buffer
-  :commands nix-buffer)
-;  :config
-;  (add-hook 'find-file-hook 'nix-buffer)
-;  (add-hook 'haskell-interactive-mode-hook 'nix-buffer))
 
 (use-package paren
   :init
