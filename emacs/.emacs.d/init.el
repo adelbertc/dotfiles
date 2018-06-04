@@ -17,8 +17,8 @@
 (setq-default show-trailing-whitespace t)
 
 ;; For Emacs Macports
-(when (eq system-type 'darwin)
-  (setq mac-command-modifier 'control))
+;; (when (eq system-type 'darwin)
+;;   (setq mac-command-modifier 'control))
 
 ;; Start Emacs full screen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -86,7 +86,9 @@
   :config
   (linum-relative-mode))
 
-(use-package nix-mode)
+(use-package nix
+  :config
+  (setq-local indent-line-function 'indent-relative))
 
 (use-package nix-buffer
   :commands nix-buffer)
