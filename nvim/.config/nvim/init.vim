@@ -1,50 +1,5 @@
 " vim:foldmethod=marker:foldlevel=0
 
-" plugins {{{
-call plug#begin('~/.local/share/nvim/plugged')
-
-" General plugins
-Plug 'altercation/vim-colors-solarized'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf-vim', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
-
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-Plug 'junegunn/goyo.vim'
-Plug 'benekastah/neomake'
-Plug 'scrooloose/nerdtree'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive'
-
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-
-" Haskell plugins
-Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-Plug 'owickstrom/neovim-ghci', { 'for': 'haskell' }
-
-" Nix plugins
-Plug 'LnL7/vim-nix', { 'for': 'nix' }
-
-" Pandoc plugins
-Plug 'vim-pandoc/vim-pandoc' ", { 'for': 'pandoc' }
-Plug 'vim-pandoc/vim-pandoc-syntax' ", { 'for': 'pandoc' }
-
-" Rust plugins
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-
-" Scala plugins
-Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
-
-" Experiments
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-
-call plug#end()
-" }}}
-
 " Neovim
 if has("nvim")
   set inccommand=split

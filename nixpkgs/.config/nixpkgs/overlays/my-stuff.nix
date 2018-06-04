@@ -31,8 +31,30 @@ self: super: {
 
     haskellTools = with self; { inherit cabal-install cabal2nix stack; };
 
-    # ENSIME needs websocket_client and sexpdata, see http://ensime.org/editors/vim/install/
-    neovim = with self; neovim.override { extraPythonPackages = with pythonPackages; [ websocket_client sexpdata ]; };
+    neovim = self.neovim.override {
+      configure = {
+        vam.pluginDictionaries = [
+          {
+            names = [
+              "deoplete-nvim"
+              "fugitive"
+              "fzf-vim"
+              "fzfWrapper"
+              "goyo"
+              "neomake"
+              "nerdtree"
+              "vim-airline"
+              "vim-airline-themes"
+              "Solarized"
+              "vim-nix"
+            ];
+          }
+        ];
+
+        # a hack to load user's vim config
+        customRC = "source ~/.config/nvim/init.vim";
+      };
+    };
 
     scalaTools = { inherit (self) sbt; };
 
