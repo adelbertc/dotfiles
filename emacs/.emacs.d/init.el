@@ -38,8 +38,10 @@
   (global-company-mode))
 
 (use-package dante
-  :after haskell-mode
+  :after haskell-mode evil
   :commands 'dante-mode
+  :config
+  (evil-ex-define-cmd "drestart" 'dante-restart)
   :init
   (add-hook 'haskell-mode-hook 'dante-mode)
   (add-hook 'haskell-mode-hook 'flycheck-mode))
