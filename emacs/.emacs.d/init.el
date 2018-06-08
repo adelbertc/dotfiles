@@ -40,19 +40,9 @@
 (use-package dante
   :after haskell-mode evil
   :commands 'dante-mode
-  :config
-  (evil-ex-define-cmd "drestart" 'dante-restart)
   :init
   (add-hook 'haskell-mode-hook 'dante-mode)
   (add-hook 'haskell-mode-hook 'flycheck-mode))
-
-(use-package ensime
-  :after (evil)
-  :config
-  (setq ensime-startup-notification nil)
-  (evil-ex-define-cmd "estart"    'ensime)
-  (evil-ex-define-cmd "ereload"   'ensime-reload)
-  (evil-ex-define-cmd "eshutdown" 'ensime-shutdown))
 
 (use-package evil
   :init
@@ -64,7 +54,7 @@
   :config
   (evil-mode 1)
   (setq x-select-enable-clipboard nil)
-  ;; Cmd+{C, V} work with the OS clipboard
+  ;; Ctrl+{C, V} work with the OS clipboard
   (bind-keys :map evil-insert-state-map ("C-v" . clipboard-yank)
              :map evil-visual-state-map ("C-c" . clipboard-kill-ring-save)))
 
@@ -107,9 +97,7 @@
          :map evil-normal-state-map (", f" . next-error)
          :map evil-normal-state-map (", q" . previous-error))
   :config
-  (evil-ex-define-cmd "sstart" 'sbt-start)
-  (evil-ex-define-cmd "scmd"   'sbt-command)
-  (evil-ex-define-cmd "sprev"  'previous-error)
+  (evil-ex-define-cmd "scmd" 'sbt-command)
   (add-hook 'sbt-mode-hook 'custom/sbt-mode-hook))
 
 (use-package spaceline-config
