@@ -41,8 +41,8 @@
   :after haskell-mode evil
   :commands 'dante-mode
   :init
-  (add-hook 'haskell-mode-hook 'dante-mode)
-  (add-hook 'haskell-mode-hook 'flycheck-mode))
+  (add-hook 'haskell-mode-hook 'flycheck-mode)
+  (add-hook 'haskell-mode-hook 'dante-mode))
 
 (use-package evil
   :init
@@ -61,6 +61,10 @@
 (use-package flycheck
   :init
   (global-flycheck-mode))
+
+(use-package haskell
+  :config
+  (put 'dante-target 'safe-local-variable #'stringp))
 
 (use-package ido
   :init
