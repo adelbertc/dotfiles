@@ -24,9 +24,6 @@
 ;; (when (eq system-type 'darwin)
 ;;   (setq mac-command-modifier 'control))
 
-;; Start Emacs full screen
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 ;; Tabs are evil
 (setq-default indent-tabs-mode nil)
 
