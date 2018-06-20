@@ -2,8 +2,15 @@ self: super: {
   personal = {
     emacs =
       let
+        nixpkgsUnstable = import (self.fetchFromGitHub {
+          owner  = "NixOS";
+          repo   = "nixpkgs";
+          rev    = "924edffb0c7c32bbfb6f8b155a3338ede5373eb4";
+          sha256 = "0853a1dj9wf7iwp5k7fs2vn2ws2dp6rn5fnwyjgq14n3iv84p4jj";
+        }) { };
+
         macEmacsWithPackages = self.emacsPackagesNg.overrideScope (esuper: eself: {
-          emacs = self.emacs25Macport;
+          emacs = nixpkgsUnstable.emacs;
         });
       in
         macEmacsWithPackages.emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
@@ -26,7 +33,7 @@ self: super: {
           nix-mode
 
           # Scala
-          ensime
+          sbt-mode
         ]));
 
     haskellTools = with self; { inherit cabal-install cabal2nix stack; };

@@ -10,7 +10,7 @@
 (add-to-list 'default-frame-alist
              '(font . "Fira Mono-14"))
 
-(setq frame-title-format "")
+(setq frame-title-format nil)
 (set-frame-parameter (selected-frame) 'name nil)
 (set-frame-parameter (selected-frame) 'title nil)
 
@@ -21,8 +21,10 @@
 (setq-default show-trailing-whitespace t)
 
 ;; For Emacs Macports
-;; (when (eq system-type 'darwin)
-;;   (setq mac-command-modifier 'control))
+(when (eq system-type 'darwin)
+  ; (setq mac-command-modifier 'control)
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (setq powerline-image-apple-rgb t))
 
 ;; Tabs are evil
 (setq-default indent-tabs-mode nil)
