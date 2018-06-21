@@ -9,7 +9,7 @@ self: super: {
           sha256 = "0853a1dj9wf7iwp5k7fs2vn2ws2dp6rn5fnwyjgq14n3iv84p4jj";
         }) { };
 
-        macEmacsWithPackages = self.emacsPackagesNg.overrideScope (esuper: eself: {
+        macEmacsWithPackages = nixpkgsUnstable.emacsPackagesNg.overrideScope (esuper: eself: {
           emacs = nixpkgsUnstable.emacs;
         });
       in
