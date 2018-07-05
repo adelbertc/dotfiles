@@ -22,7 +22,7 @@
 
 ;; For Emacs Macports
 (when (eq system-type 'darwin)
-  ; (setq mac-command-modifier 'control)
+  (setq mac-command-modifier 'control)
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (setq powerline-image-apple-rgb t))
 
