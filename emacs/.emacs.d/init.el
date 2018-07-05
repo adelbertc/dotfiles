@@ -36,12 +36,9 @@
   :init
   (global-company-mode))
 
-(use-package dante
-  :after haskell-mode evil
-  :commands 'dante-mode
-  :init
-  (add-hook 'haskell-mode-hook 'flycheck-mode)
-  (add-hook 'haskell-mode-hook 'dante-mode))
+(use-package direnv
+  :config
+  (direnv-mode))
 
 (use-package evil
   :init
@@ -59,11 +56,16 @@
 
 (use-package flycheck
   :init
-  (global-flycheck-mode))
-
-(use-package haskell
+  (global-flycheck-mode)
   :config
-  (put 'dante-target 'safe-local-variable #'stringp))
+  ;; Workaround to make direnv update environment before loading Flycheck
+  (setq flycheck-executable-find
+        (lambda (cmd) (direnv-update-environment default-directory) (executable-find cmd))))
+
+(use-package flycheck-haskell
+  :hook (haskell-mode . flycheck-haskell-setup))
+
+(use-package haskell)
 
 (use-package ido
   :init
@@ -80,7 +82,7 @@
   :config
   (linum-relative-mode))
 
-(use-package nix
+(use-package nix-mode
   :config
   (setq-local indent-line-function 'indent-relative))
 

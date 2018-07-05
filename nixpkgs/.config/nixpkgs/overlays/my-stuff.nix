@@ -13,28 +13,33 @@ self: super: {
           emacs = nixpkgsUnstable.emacs;
         });
       in
-        macEmacsWithPackages.emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
-          company
-          diminish
-          evil
-          flycheck
-          linum-relative
-          spaceline
-          projectile
-          solarized-theme
-          use-package
+        {
+          inherit (self) direnv; # needed for direnv-mode
 
-          # Haskell
-          haskell-mode
-          dante
+          emacs = macEmacsWithPackages.emacsWithPackages (epkgs: (with epkgs; [
+            company
+            diminish
+            direnv
+            evil
+            flycheck
+            linum-relative
+            markdown-mode
+            spaceline
+            projectile
+            solarized-theme
+            use-package
 
-          # Nix
-          nix-buffer
-          nix-mode
+            # Haskell
+            flycheck-haskell
+            haskell-mode
 
-          # Scala
-          sbt-mode
-        ]));
+            # Nix
+            nix-mode
+
+            # Scala
+            sbt-mode
+          ]));
+        };
 
     haskellTools = with self; { inherit cabal-install cabal2nix stack; };
 
