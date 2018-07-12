@@ -36,6 +36,10 @@
   :init
   (global-company-mode))
 
+(use-package dante
+  :after haskell-mode
+  :hook (haskell-mode . dante-mode))
+
 (use-package direnv
   :config
   (direnv-mode))
@@ -62,10 +66,9 @@
   (setq flycheck-executable-find
         (lambda (cmd) (direnv-update-environment default-directory) (executable-find cmd))))
 
-(use-package flycheck-haskell
-  :hook (haskell-mode . flycheck-haskell-setup))
-
-(use-package haskell)
+(use-package haskell
+  :config
+  (put 'dante-target 'safe-local-variable #'stringp))
 
 (use-package ido
   :init

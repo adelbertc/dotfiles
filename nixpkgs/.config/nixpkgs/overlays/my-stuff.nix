@@ -30,7 +30,7 @@ self: super: {
             use-package
 
             # Haskell
-            flycheck-haskell
+            dante
             haskell-mode
 
             # Nix
