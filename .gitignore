@@ -1,7 +1,6 @@
-# Ignore .bash_private which can be accidentally placed in the ./bash directory
-# Sourced in bashrc but should contain (private) machine/environment-specific
-# stuff and therefore should not be versioned
+# Ignore private/local customizations
 .bash_private
+private.nix
 
 #########
 # EMACS #
