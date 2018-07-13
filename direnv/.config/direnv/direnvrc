@@ -1,3 +1,5 @@
+# Taken from https://github.com/direnv/direnv/wiki/Nix#persistent-cached-shell
+
 # Usage: use_nix [...]
 #
 # Load environment variables from `nix-shell`.
@@ -25,7 +27,13 @@
 #
 # To remove only old environments:
 # `find .direnv -name 'env-*' -and -not -name `readlink .direnv/default` -exec rm -rf {} +`
-#
+
+get_hash() {
+    filepath=$1
+    hash=$(md5 -q "$filepath") # yay macOS..
+    echo "$hash" | cut -c -32
+}
+
 use_nix() {
     set -e
 
@@ -42,7 +50,7 @@ use_nix() {
     local default="${dir}/default"
     if [[ ! -L "${default}" ]] || [[ ! -d $(readlink "${default}") ]]; then
         local wd
-        wd="${dir}/env-$(md5sum "${shell}" | cut -c -32)" # TODO: Hash also the nixpkgs version?
+        wd="${dir}/env-$(get_hash "$shell")" # TODO: Hash also the nixpkgs version?
         mkdir -p "${wd}"
 
         local drv="${wd}/env.drv"
@@ -59,7 +67,7 @@ use_nix() {
     local drv
     drv=$(readlink -f "${default}/env.drv")
     local dump
-    dump="${dir}/dump-$(md5sum ".envrc" | cut -c -32)-$(md5sum "${drv}" | cut -c -32)"
+    dump="${dir}/dump-$(get_hash ".envrc")-$(get_hash "${drv}")"
 
     if [[ ! -f "${dump}" ]] || [[ "${XDG_CONFIG_DIR}/direnv/direnvrc" -nt "${dump}" ]]; then
         log_status "use nix: updating cache"

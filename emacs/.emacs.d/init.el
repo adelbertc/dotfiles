@@ -41,11 +41,15 @@
   :hook (haskell-mode . dante-mode)
   :config
   (put 'dante-target 'safe-local-variable #'stringp)
+  (setq cabal-repl-cmd '("cabal" "repl" dante-target "--builddir=dist/dante"))
   (setq dante-repl-command-line-methods-alist
-        `((stack . ,(lambda (root) (dante-repl-by-file root '("stack.yaml") '("stack" "repl" dante-target))))
-          (cabal . ,(lambda (_) (if (file-exists-p ".envrc")
-                                  (progn (direnv-update-environment) '("cabal" "repl" dante-target "--builddir=dist/dante"))
-                                  '("cabal" "repl" dante-target "--builddir=dist/dante")))))))
+        `((direnv . ,(lambda (root) (if (file-exists-p (concat root ".envrc"))
+                                      (progn (direnv-update-environment) cabal-repl-cmd)
+                                      cabal-repl-cmd)))
+          (nix    . ,(lambda (root) (dante-repl-by-file root '("shell.nix" "default.nix")
+                                                             '("nix-shell" "--run" cabal-repl-cmd))))
+          (stack  . ,(lambda (root) (dante-repl-by-file root '("stack.yaml") '("stack" "repl" dante-target))))
+          )))
 
 (use-package direnv
   :config
