@@ -9,14 +9,13 @@ self: super: {
           sha256 = "0853a1dj9wf7iwp5k7fs2vn2ws2dp6rn5fnwyjgq14n3iv84p4jj";
         }) { };
 
-        macEmacsWithPackages = nixpkgsUnstable.emacsPackagesNg.overrideScope (esuper: eself: {
-          emacs = nixpkgsUnstable.emacs;
+        emacs = nixpkgsUnstable.emacsPackagesNg.overrideScope (esuper: eself: {
         });
       in
         {
           inherit (self) direnv; # needed for direnv-mode
 
-          emacs = macEmacsWithPackages.emacsWithPackages (epkgs: (with epkgs; [
+          emacs = emacs.emacsWithPackages (epkgs: (with epkgs; [
             company
             diminish
             direnv

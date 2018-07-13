@@ -37,8 +37,15 @@
   (global-company-mode))
 
 (use-package dante
-  :after haskell-mode
-  :hook (haskell-mode . dante-mode))
+  :after (haskell-mode direnv)
+  :hook (haskell-mode . dante-mode)
+  :config
+  (put 'dante-target 'safe-local-variable #'stringp)
+  (setq dante-repl-command-line-methods-alist
+        `((stack . ,(lambda (root) (dante-repl-by-file root '("stack.yaml") '("stack" "repl" dante-target))))
+          (cabal . ,(lambda (_) (if (file-exists-p ".envrc")
+                                  (progn (direnv-update-environment) '("cabal" "repl" dante-target "--builddir=dist/dante"))
+                                  '("cabal" "repl" dante-target "--builddir=dist/dante")))))))
 
 (use-package direnv
   :config
@@ -66,9 +73,7 @@
   (setq flycheck-executable-find
         (lambda (cmd) (direnv-update-environment default-directory) (executable-find cmd))))
 
-(use-package haskell
-  :config
-  (put 'dante-target 'safe-local-variable #'stringp))
+(use-package haskell)
 
 (use-package ido
   :init
