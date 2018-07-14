@@ -13,7 +13,7 @@ self: super: {
         });
       in
         {
-          inherit (self) direnv; # needed for direnv-mode
+          inherit (self) coreutils direnv; # needed for direnv-mode
 
           emacs = emacs.emacsWithPackages (epkgs: (with epkgs; [
             company

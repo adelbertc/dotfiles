@@ -1,4 +1,5 @@
 # Taken from https://github.com/direnv/direnv/wiki/Nix#persistent-cached-shell
+# NOTE: Does not work without coreutils (uses md5sum and readlink -f)
 
 # Usage: use_nix [...]
 #
@@ -30,7 +31,7 @@
 
 get_hash() {
     filepath=$1
-    hash=$(md5 -q "$filepath") # yay macOS..
+    hash=$(md5sum "$filepath")
     echo "$hash" | cut -c -32
 }
 
