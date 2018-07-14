@@ -38,7 +38,8 @@
 
 (use-package dante
   :after (haskell-mode direnv)
-  :hook (haskell-mode . dante-mode)
+  :hook ((haskell-mode . dante-mode)
+         (dante-mode   . (lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint)))))
   :config
   (put 'dante-target 'safe-local-variable #'stringp)
   (setq cabal-repl-cmd '("cabal" "repl" dante-target "--builddir=dist/dante"))
