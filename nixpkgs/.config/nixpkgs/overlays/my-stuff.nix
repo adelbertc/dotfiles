@@ -36,6 +36,7 @@ self: super: {
             nix-mode
 
             # Scala
+            scala-mode
             sbt-mode
           ]));
         };

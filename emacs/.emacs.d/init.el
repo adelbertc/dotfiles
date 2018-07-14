@@ -106,7 +106,7 @@
   (show-paren-mode))
 
 (use-package sbt-mode
-  :after (evil)
+  :after (evil scala-mode)
   :preface
   (defun custom/sbt-mode-hook ()
     ; Recover C-d for evil-scroll-down
@@ -117,6 +117,8 @@
   :config
   (evil-ex-define-cmd "scmd" 'sbt-command)
   (add-hook 'sbt-mode-hook 'custom/sbt-mode-hook))
+
+(use-package scala-mode)
 
 (use-package spaceline-config
   :init
