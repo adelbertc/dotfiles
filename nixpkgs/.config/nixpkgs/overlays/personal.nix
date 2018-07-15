@@ -41,7 +41,7 @@ self: super: {
           ]));
         };
 
-    haskellTools = with self; { inherit cabal-install cabal2nix stack; };
+    haskellTools = with self; { inherit cabal-install stack; };
 
     neovim = self.neovim.override {
       configure = {
