@@ -38,6 +38,7 @@ self: super: {
             # Scala
             scala-mode
             sbt-mode
+            mustache-mode
           ]));
         };
 

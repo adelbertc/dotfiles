@@ -95,6 +95,8 @@
   :config
   (linum-relative-mode))
 
+(use-package mustache-mode)
+
 (use-package nix-mode
   :config
   (setq-local indent-line-function 'indent-relative))
