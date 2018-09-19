@@ -107,6 +107,19 @@
   :config
   (show-paren-mode))
 
+(use-package rust-mode)
+
+(use-package cargo
+  :hook ((rust-mode . cargo-minor-mode)))
+
+(use-package racer
+  :config  (progn
+    (setq racer-rust-src-path "~/src/rust/src")) ;; Rust source code PATH
+  :hook ((rust-mode . racer-mode)
+         (racer-mode . company-mode)
+         (racer-mode . flycheck-mode)
+         (racer-mode . eldoc-mode)))
+
 (use-package sbt-mode
   :after (evil scala-mode)
   :preface
