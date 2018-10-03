@@ -35,9 +35,15 @@ self: super: {
             # Nix
             nix-mode
 
+            # Rust
+            cargo
+            rust-mode
+            racer
+
             # Scala
             scala-mode
             sbt-mode
+            mustache-mode
           ]));
         };
 

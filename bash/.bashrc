@@ -40,7 +40,7 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
   # Start Emacs in a shell named 'shell'
   emacs_shell="/bin/bash"
   emacs_shell_name="shell"
-  alias emacs="open ~/.nix-profile/Applications/Emacs.app --args --eval '(ansi-term \"${emacs_shell}\" \"${emacs_shell_name}\")'"
+  alias emacs="fzf | xargs open -a ~/.nix-profile/Applications/Emacs.app"
 fi
 
 # Source local .bash_private if it exists

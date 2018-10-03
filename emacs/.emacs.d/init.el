@@ -95,6 +95,8 @@
   :config
   (linum-relative-mode))
 
+(use-package mustache-mode)
+
 (use-package nix-mode
   :config
   (setq-local indent-line-function 'indent-relative))
@@ -104,6 +106,21 @@
   (setq-default show-paren-when-point-inside-paren t)
   :config
   (show-paren-mode))
+
+(use-package rust-mode
+  :config
+  (setq-default flycheck-disabled-checkers '(rust-cargo rust rust-clippy)))
+
+(use-package cargo
+  :hook ((rust-mode . cargo-minor-mode)))
+
+(use-package racer
+  :config  (progn
+    (setq racer-rust-src-path "~/src/rust/src")) ;; Rust source code PATH
+  :hook ((rust-mode . racer-mode)
+         (racer-mode . company-mode)
+         ; (racer-mode . flycheck-mode)
+         (racer-mode . eldoc-mode)))
 
 (use-package sbt-mode
   :after (evil scala-mode)
