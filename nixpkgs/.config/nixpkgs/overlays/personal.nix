@@ -68,7 +68,7 @@ self: super: {
       };
     };
 
-    scalaTools = { inherit (self) sbt; };
+    scalaTools = { inherit (self) ammonite sbt; };
 
     tex = { inherit (self.texlive.combined) scheme-full; };
 
