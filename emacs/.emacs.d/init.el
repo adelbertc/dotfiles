@@ -36,22 +36,6 @@
   :init
   (global-company-mode))
 
-(use-package dante
-  :after (haskell-mode direnv)
-  :hook ((haskell-mode . dante-mode)
-         (dante-mode   . (lambda () (flycheck-add-next-checker 'haskell-dante '(warning . haskell-hlint)))))
-  :config
-  (put 'dante-target 'safe-local-variable #'stringp)
-  (setq cabal-repl-cmd '("cabal" "repl" dante-target "--builddir=dist/dante"))
-  (setq dante-repl-command-line-methods-alist
-        `((direnv . ,(lambda (root) (if (file-exists-p (concat root ".envrc"))
-                                      (progn (direnv-update-environment) cabal-repl-cmd)
-                                      cabal-repl-cmd)))
-          (nix    . ,(lambda (root) (dante-repl-by-file root '("shell.nix" "default.nix")
-                                                             '("nix-shell" "--run" cabal-repl-cmd))))
-          (stack  . ,(lambda (root) (dante-repl-by-file root '("stack.yaml") '("stack" "repl" dante-target))))
-          )))
-
 (use-package direnv
   :config
   (direnv-mode))
@@ -78,7 +62,17 @@
   (setq flycheck-executable-find
         (lambda (cmd) (direnv-update-environment default-directory) (executable-find cmd))))
 
-(use-package haskell)
+(use-package haskell-interactive-mode)
+
+(use-package haskell-process)
+
+(use-package haskell
+  :after (direnv)
+  :hook (haskell-mode . interactive-haskell-mode)
+  :config
+  (put 'haskell-process-type 'safe-local-variable #'symbolp)
+  (setq-default flycheck-disabled-checkers '(haskell-ghc haskell-stack-ghc)))
+  ; (setq haskell-process-args-cabal-new-repl '("--ghc-option=-ferror-spans")))
 
 (use-package ido
   :init
