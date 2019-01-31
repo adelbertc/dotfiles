@@ -62,17 +62,17 @@
   (setq flycheck-executable-find
         (lambda (cmd) (direnv-update-environment default-directory) (executable-find cmd))))
 
-(use-package haskell-interactive-mode)
+; (use-package haskell-interactive-mode
+;   :hook (haskell-mode . interactive-haskell-mode)
+;   :config
+;   (setq haskell-process-log t))
 
-(use-package haskell-process)
+; (use-package haskell-process)
 
 (use-package haskell
   :after (direnv)
-  :hook (haskell-mode . interactive-haskell-mode)
   :config
-  (put 'haskell-process-type 'safe-local-variable #'symbolp)
-  (setq-default flycheck-disabled-checkers '(haskell-ghc haskell-stack-ghc)))
-  ; (setq haskell-process-args-cabal-new-repl '("--ghc-option=-ferror-spans")))
+  (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(haskell-ghc haskell-stack-ghc))))
 
 (use-package ido
   :init
@@ -103,7 +103,8 @@
 
 (use-package rust-mode
   :config
-  (setq-default flycheck-disabled-checkers '(rust-cargo rust rust-clippy)))
+  (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(rust-cargo rust rust-clippy))))
+
 
 (use-package cargo
   :hook ((rust-mode . cargo-minor-mode)))
@@ -176,7 +177,9 @@
   :bind (:map evil-normal-state-map (", l" . projectile-switch-project)
          :map evil-normal-state-map (", v" . projectile-find-file))
   :config
-  (projectile-global-mode 1))
+  (put 'projectile-project-compilation-cmd 'safe-local-variable #'stringp)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
 
 (use-package solarized-theme
   :init
