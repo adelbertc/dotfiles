@@ -1,4 +1,23 @@
 self: super: {
+  picofeed = self.stdenv.mkDerivation rec {
+    name = "picofeed-${version}";
+    version = "1.0";
+
+    src = self.fetchurl {
+      url = "https://github.com/seenaburns/picofeed/releases/download/${version}/picofeed-osx";
+      sha256 = "107dina9qbkr69y7kwpcdh76qy9bh478j0favyr8ykwl6mg3q5s1";
+      curlOpts = ["-L"];
+    };
+
+    phases = "installPhase";
+
+    installPhase = ''
+      mkdir -p $out/bin
+      cp $src $out/bin/picofeed
+      chmod +x $out/bin/picofeed
+    '';
+  };
+
   personal = {
     emacs =
       let
@@ -73,6 +92,8 @@ self: super: {
         customRC = "source ~/.config/nvim/init.vim";
       };
     };
+
+    rustTools = { inherit (self) rustup; };
 
     scalaTools = { inherit (self) ammonite sbt; };
 
