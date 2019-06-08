@@ -36,6 +36,8 @@
   :init
   (global-company-mode))
 
+(use-package company-lsp)
+
 (use-package direnv
   :config
   (direnv-mode))
@@ -89,6 +91,12 @@
   :config
   (linum-relative-mode))
 
+(use-package lsp-mode
+  :hook (scala-mode . lsp)
+  :config
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-enable-snippet nil))
+
 (use-package mustache-mode)
 
 (use-package nix-mode
@@ -118,18 +126,22 @@
 
 (use-package sbt-mode
   :after (evil scala-mode)
+  :commands sbt-start sbt-command
   :preface
   (defun custom/sbt-mode-hook ()
     ; Recover C-d for evil-scroll-down
     (define-key evil-normal-state-local-map (kbd "C-d") 'evil-scroll-down))
-  :bind (:map evil-normal-state-map ("C-d" . evil-scroll-down)
-         :map evil-normal-state-map (", f" . next-error)
-         :map evil-normal-state-map (", q" . previous-error))
+  :bind (:map evil-normal-state-map ("C-d" . evil-scroll-down))
   :config
   (evil-ex-define-cmd "scmd" 'sbt-command)
-  (add-hook 'sbt-mode-hook 'custom/sbt-mode-hook))
+  (add-hook 'sbt-mode-hook 'custom/sbt-mode-hook)
+  (substitute-key-definition
+    'minibuffer-complete-word
+    'self-insert-command
+    minibuffer-local-completion-map))
 
-(use-package scala-mode)
+(use-package scala-mode
+  :mode "\\.s\\(cala\\|bt\\)$")
 
 (use-package spaceline-config
   :init
