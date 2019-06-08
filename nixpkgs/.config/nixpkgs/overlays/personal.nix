@@ -25,11 +25,9 @@ self: super: {
           lsp-mode = eself.melpaBuild {
             pname = "lsp-mode";
             version = "20190606.1958";
-            src = self.fetchFromGitHub {
-              owner = "emacs-lsp";
-              repo = "lsp-mode";
+            src = fetchGit {
+              url = "https://github.com/emacs-lsp/lsp-mode.git";
               rev = "34b769cebde2b7ba3f11230636a1fcd808551323";
-              sha256 = "1cxglnk2hpkfv7yhxfm4xyd3gfjw0x8ysab3v3fazprnsiz7xlxr";
             };
             packageRequires = with eself; [
               dash
@@ -48,11 +46,9 @@ self: super: {
           lsp-ui = eself.melpaBuild {
             pname = "lsp-ui";
             version = "20190523.1521";
-            src = self.fetchFromGitHub {
-              owner = "emacs-lsp";
-              repo = "lsp-ui";
+            src = fetchGit {
+              url = "https://github.com/emacs-lsp/lsp-ui.git";
               rev = "3ccc3e3386732c3ee22c151e6b5215a0e4c99173";
-              sha256 = "1k51lwrd3qy1d0afszg1i041cm8a3pz4qqdj7561sncy8m0szrwk";
             };
             packageRequires = with eself; [
               dash
@@ -71,11 +67,9 @@ self: super: {
           company-lsp = eself.melpaBuild {
             pname = "company-lsp";
             version = "20190525.207";
-            src = self.fetchFromGitHub {
-              owner = "tigersoldier";
-              repo = "company-lsp";
+            src = fetchGit {
+              url = "https://github.com/tigersoldier/company-lsp.git";
               rev = "cd1a41583f2d71baef44604a14ea71f49b280bf0";
-              sha256 = "0qxwl5w9l3bab35r9d8g2yfrykj6gzn8jz2b8h2rfkzd36k7zv11";
             };
             packageRequires = with eself; [
               company
