@@ -5,8 +5,8 @@ self: super: {
         nixpkgsUnstable = import (self.fetchFromGitHub {
           owner  = "NixOS";
           repo   = "nixpkgs";
-          rev    = "924edffb0c7c32bbfb6f8b155a3338ede5373eb4";
-          sha256 = "0853a1dj9wf7iwp5k7fs2vn2ws2dp6rn5fnwyjgq14n3iv84p4jj";
+          rev    = "3eed6d45739bfb6ef4e74837199021fe129a1f1f";
+          sha256 = "068zwvlhizayrz6hhkqhl0p9w97wqsi4yfphgq17p4xcvf997nw8";
         }) { };
 
         emacs = nixpkgsUnstable.emacsPackagesNg.overrideScope (esuper: eself: {

@@ -128,56 +128,7 @@ nnoremap <leader>l :cfirst<cr>
 nnoremap <leader>f :cnext<cr>
 nnoremap <leader>g :cprevious<cr>
 
-let g:LanguageClient_serverCommands = {
-      \ 'haskell': ['hie', '--lsp']
-      \ }
-
-augroup HaskellStuff
-  autocmd!
-
-  " Experiment with haskell-ide-engine
-  if $USE_HIE ==# "true"
-    let g:LanguageClient_autoStart = 1
-  else
-    let g:ghci_command = "cabal repl"
-
-    autocmd FileType haskell nnoremap <silent> <leader>gs :GhciStart<cr>
-    autocmd FileType haskell nnoremap <silent> <leader>gk :GhciKill<cr>
-    autocmd FileType haskell nnoremap <silent> <leader>gr :GhciRestart<cr>
-
-    autocmd FileType haskell nnoremap <silent> <leader>go :GhciOpen<cr>
-    autocmd FileType haskell nnoremap <silent> <leader>gh :GhciHide<cr>
-
-    autocmd FileType haskell map <silent> <leader>gt <Plug>GhciType
-    autocmd FileType haskell map <silent> <leader>gi <Plug>GhciTypeInsert
-
-    autocmd BufWritePost *.hs GhciReload
-
-    autocmd FileType haskell nnoremap <silent> <leader>gl :GhciLoadCurrentModule<cr>
-    autocmd FileType haskell nnoremap <silent> <leader>gf :GhciLoadCurrentFile<cr>
-  endif
-augroup END
-
-augroup ScalaStuff
-  autocmd!
-
-  " .sbt is Scala highlighted
-  autocmd BufRead,BufNewFile *.sbt set filetype=scala
-
-  autocmd BufWritePost *.scala silent :EnTypeCheck
-  autocmd FileType scala nnoremap <leader>gt :EnType<cr>
-  autocmd FileType scala nnoremap <leader>gd :EnDeclarationSplit<cr>
-  autocmd FileType scala nnoremap <leader>gf :EnDeclaration<cr>
-augroup END
-
-augroup RustStuff
-  autocmd!
-
-  autocmd FileType rust call neomake#configure#automake("w")
-
-  let g:racer_cmd=$HOME . "/.cargo/bin/racer"
-  autocmd FileType rust nmap <leader>rd <Plug>(rust-doc)
-augroup END
+call neomake#configure#automake('nw', 1000)
 
 augroup NeomakeSolarized
   autocmd!

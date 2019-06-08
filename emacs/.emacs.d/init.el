@@ -105,7 +105,6 @@
   :config
   (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(rust-cargo rust rust-clippy))))
 
-
 (use-package cargo
   :hook ((rust-mode . cargo-minor-mode)))
 
