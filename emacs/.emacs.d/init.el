@@ -92,7 +92,7 @@
   (linum-relative-mode))
 
 (use-package lsp-mode
-  :hook (scala-mode . lsp)
+  :after (direnv)
   :config
   (setq lsp-prefer-flymake nil)
   (setq lsp-enable-snippet nil))
@@ -110,6 +110,8 @@
   (show-paren-mode))
 
 (use-package rust-mode
+  :hook (rust-mode . lsp)
+  :mode "\\.rs\\'"
   :config
   (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(rust-cargo rust rust-clippy))))
 
@@ -141,6 +143,7 @@
     minibuffer-local-completion-map))
 
 (use-package scala-mode
+  :hook (scala-mode . lsp)
   :mode "\\.s\\(cala\\|bt\\)$")
 
 (use-package spaceline-config

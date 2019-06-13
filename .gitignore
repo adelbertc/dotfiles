@@ -2,6 +2,10 @@
 .bash_private
 private.nix
 
+# Random Emacs stuff
+emacs/.emacs.d/**
+!emacs/.emacs.d/init.el
+
 #########
 # EMACS #
 #########
