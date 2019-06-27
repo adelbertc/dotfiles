@@ -137,7 +137,6 @@ self: super: {
             # Rust
             cargo
             rust-mode
-            racer
 
             # Scala
             scala-mode
