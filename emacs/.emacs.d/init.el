@@ -135,8 +135,6 @@
   (show-paren-mode))
 
 (use-package rust-mode
-  :hook (rust-mode . lsp)
-  :mode "\\.rs\\'"
   :config
   (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(rust-cargo rust rust-clippy))))
 
@@ -159,9 +157,7 @@
     'self-insert-command
     minibuffer-local-completion-map))
 
-(use-package scala-mode
-  :hook (scala-mode . lsp)
-  :mode "\\.s\\(cala\\|bt\\)$")
+(use-package scala-mode)
 
 (use-package spaceline-config
   :init

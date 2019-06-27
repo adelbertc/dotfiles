@@ -2,7 +2,7 @@ PS1='\[\e[0;36m\]\w\[\e[0;32m\]$(maybeGitBranch) \[\e[0;31m\]⊢ \[\e[0m\]'
 
 maybeGitBranch () {
   if hash __git_ps1 2>/dev/null; then
-    echo "$(__git_ps1 " [%s]")"
+    __git_ps1 " [%s]"
   else
     echo ""
   fi
@@ -15,7 +15,7 @@ export GREP_COLOR='1;32'
 
 export PATH=~/.config/personal_scripts:$PATH
 
-emacs_cmd="emacsclient --quiet --alternate-editor=nvim"
+emacs_cmd="emacsclient -nw --alternate-editor=nvim"
 
 if hash emacsclient 2>/dev/null; then
   export EDITOR="${emacs_cmd}"
@@ -24,6 +24,8 @@ elif hash nvim 2>/dev/null; then
 else
   export EDITOR=vim
 fi
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
 set -o vi
 
@@ -35,11 +37,7 @@ set -o vi
 #            macOS Only
 # ------------------------------------------------------
 if [[ "${OSTYPE}" == "darwin"* ]]; then
-  alias e="${emacs_cmd}"
-
   # Start Emacs in a shell named 'shell'
-  emacs_shell="/bin/bash"
-  emacs_shell_name="shell"
   alias emacs="fzf | xargs open -a ~/.nix-profile/Applications/Emacs.app"
 fi
 
