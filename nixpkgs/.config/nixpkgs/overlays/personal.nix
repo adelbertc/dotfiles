@@ -86,7 +86,7 @@ self: super: {
 
         scala-metals = self.stdenv.mkDerivation rec {
           name = "scala-metals-${version}";
-          version = "0.6.1";
+          version = "0.7.0";
           phases = "buildPhase";
           buildInputs = [ self.coursier ];
           buildPhase = ''
