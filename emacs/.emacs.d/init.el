@@ -44,7 +44,9 @@
 
 (use-package evil
   :init
-  (setq evil-want-C-u-scroll t
+  (setq evil-want-C-u-scroll  t
+        evil-want-integration t
+        evil-want-keybinding  nil
         evil-normal-state-tag  "NORMAL"
         evil-insert-state-tag  "INSERT"
         evil-visual-state-tag  "VISUAL"
@@ -55,6 +57,11 @@
   ;; Ctrl+{C, V} work with the OS clipboard
   (bind-keys :map evil-insert-state-map ("C-v" . clipboard-yank)
              :map evil-visual-state-map ("C-c" . clipboard-kill-ring-save)))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 
 (use-package flycheck
   :init
@@ -92,7 +99,9 @@
   (linum-relative-mode))
 
 (use-package lsp-mode
-  :after (direnv)
+  :after (direnv evil)
+  :bind (:map evil-normal-state-map (", f" . next-error)
+         :map evil-normal-state-map (", q" . previous-error))
   :config
   (setq lsp-prefer-flymake nil)
   (setq lsp-enable-snippet nil)

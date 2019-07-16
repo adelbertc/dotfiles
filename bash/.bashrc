@@ -15,12 +15,13 @@ export GREP_COLOR='1;32'
 
 export PATH=~/.config/personal_scripts:$PATH
 
-emacs_cmd="emacsclient -nw --alternate-editor=nvim"
+alias nvim="echo 'Use emacs you coward.'"
+term_emacs_nw="~/.nix-profile/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+term_emacs="TERM=xterm emacsclient -nw --alternate-editor=\${term_emacs_nw}"
+alias e=${term_emacs}
 
 if hash emacsclient 2>/dev/null; then
-  export EDITOR="${emacs_cmd}"
-elif hash nvim 2>/dev/null; then
-  export EDITOR=nvim
+  export EDITOR="${term_emacs}"
 else
   export EDITOR=vim
 fi
@@ -37,8 +38,7 @@ set -o vi
 #            macOS Only
 # ------------------------------------------------------
 if [[ "${OSTYPE}" == "darwin"* ]]; then
-  # Start Emacs in a shell named 'shell'
-  alias emacs="fzf | xargs open -a ~/.nix-profile/Applications/Emacs.app"
+  alias emacs="open -a ~/.nix-profile/Applications/Emacs.app --args"
 fi
 
 # Source local .bash_private if it exists

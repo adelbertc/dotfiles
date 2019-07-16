@@ -114,6 +114,7 @@ self: super: {
             diminish
             direnv
             evil
+            evil-collection
             flycheck
             linum-relative
             markdown-mode
