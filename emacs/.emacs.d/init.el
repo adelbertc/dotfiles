@@ -137,6 +137,14 @@
   :config
   (setq-local indent-line-function 'indent-relative))
 
+(use-package org
+  :config
+  (setq org-hide-emphasis-markers t)
+  (custom-theme-set-faces
+    'user
+    '(variable-pitch ((t (:family "Fira Sans" :height 180 :weight light))))
+    '(fixed-pitch    ((t (:family "Fira Mono" :height 1.0 :weight normal :width normal :slant normal))))))
+
 (use-package paren
   :init
   (setq-default show-paren-when-point-inside-paren t)
