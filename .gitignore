@@ -2,7 +2,10 @@
 .bash_private
 private.nix
 
-# Random Emacs stuff
+# Random stuff
+nvim/.config/nvim/.netrwhist
+sbt/.sbt/1.0/plugins/metals.sbt
+sbt/.sbt/1.0/staging/
 emacs/.emacs.d/**
 !emacs/.emacs.d/init.el
 
