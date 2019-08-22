@@ -120,7 +120,7 @@ self: super: {
             markdown-mode
             spaceline
             projectile
-            solarized-theme
+            base16-theme
             use-package
 
             # Haskell
@@ -143,6 +143,14 @@ self: super: {
             scala-mode
             sbt-mode
             mustache-mode
+
+            terraform-mode
+            company-terraform
+
+            ansible
+            company-ansible
+
+            yaml-mode
           ]));
         };
 

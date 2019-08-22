@@ -32,6 +32,9 @@
 ;; Give me brace matching
 (electric-pair-mode 1)
 
+(use-package ansible)
+(use-package company-ansible)
+
 (use-package company
   :init
   (global-company-mode))
@@ -178,29 +181,13 @@
 
 (use-package spaceline-config
   :init
-  ; Delicate.. hex values are picked out of the Solarized palette manually
-  ; Copied from Spaceline
-  (dolist (s '((custom/spaceline-evil-normal  "#586e75"        "Evil normal state face.")
-               (custom/spaceline-evil-insert  "DarkGoldenrod2" "Evil insert state face.")
-               (custom/spaceline-evil-emacs   "SkyBlue2"       "Evil emacs state face.")
-               (custom/spaceline-evil-replace "red"            "Evil replace state face.")
-               (custom/spaceline-evil-visual  "maroon"         "Evil visual state face.")
-               (custom/spaceline-evil-motion  "plum3"          "Evil motion state face.")))
-    (eval `(defface ,(nth 0 s) `((t (:background ,(nth 1 s) :foreground "#073642" :inherit 'mode-line)))
-                    ,(nth 2 s) :group 'spaceline)))
   (setq-default
-    spaceline-evil-state-faces
-    '((normal  . custom/spaceline-evil-normal)
-      (insert  . custom/spaceline-evil-insert)
-      (emacs   . custom/spaceline-evil-emacs)
-      (replace . custom/spaceline-evil-replace)
-      (visual  . custom/spaceline-evil-visual)
-      (motion  . custom/spaceline-evil-motion))
-
     mode-line-format '("%e" (:eval (spaceline-ml-main)))
+
     powerline-default-separator 'wave
-    ;; Stolen from Spacemacs powerline-scale
+    ;; Stolen from Spacemacs powerline-scale - makes wave look not-janky
     powerline-height (truncate (* 1.3 (frame-char-height)))
+
     spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 
   :config
@@ -225,12 +212,17 @@
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
 
-(use-package solarized-theme
-  :init
-  ; Kind of a workaround for weird underlining behavior in mode line
-  (setq-default solarized-high-contrast-mode-line t)
+(use-package base16-theme
   :config
-  (load-theme 'solarized-dark t))
+  (load-theme 'base16-default-dark t)
+  ;; Set the cursor color based on the evil state
+  (defvar custom/base16-colors base16-default-dark-colors)
+  (setq evil-emacs-state-cursor   `(,(plist-get custom/base16-colors :base0D) box)
+        evil-insert-state-cursor  `(,(plist-get custom/base16-colors :base0D) bar)
+        evil-motion-state-cursor  `(,(plist-get custom/base16-colors :base0E) box)
+        evil-normal-state-cursor  `(,(plist-get custom/base16-colors :base0B) box)
+        evil-replace-state-cursor `(,(plist-get custom/base16-colors :base08) bar)
+        evil-visual-state-cursor  `(,(plist-get custom/base16-colors :base09) box)))
 
 (use-package term
   :after (evil)
@@ -248,3 +240,12 @@
   :config
   (add-hook 'term-mode-hook 'custom/term-mode-hook)
   (evil-ex-define-cmd "term" 'custom/create-term))
+
+(use-package terraform-mode)
+
+(use-package company-terraform
+  :after (terraform-mode)
+  :config
+  (company-terraform-init))
+
+(use-package yaml-mode)
