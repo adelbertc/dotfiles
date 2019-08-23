@@ -8,7 +8,7 @@
 
 ;; Aesthetics
 (add-to-list 'default-frame-alist
-             '(font . "Fira Mono-14"))
+             '(font . "Iosevka Term-16"))
 
 (setq frame-title-format nil)
 (set-frame-parameter (selected-frame) 'name nil)
@@ -186,7 +186,7 @@
 
     powerline-default-separator 'wave
     ;; Stolen from Spacemacs powerline-scale - makes wave look not-janky
-    powerline-height (truncate (* 1.3 (frame-char-height)))
+    powerline-height (truncate (* 1.5 (frame-char-height)))
 
     spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 
