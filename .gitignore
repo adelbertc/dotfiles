@@ -1,6 +1,7 @@
 # Ignore private/local customizations
 .bash_private
 private.nix
+**/private/*
 
 # Random stuff
 nvim/.config/nvim/.netrwhist

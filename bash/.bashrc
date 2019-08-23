@@ -13,12 +13,12 @@ export CLICOLOR=1 # LS Color
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
-export PATH=~/.config/personal_scripts:$PATH
+export PATH=~/.scripts:$PATH
+
+[[ -d ~/.scripts/private ]] && export PATH=~/.scripts/private:$PATH
 
 alias nvim="echo 'Use emacs you coward.'"
-term_emacs_nw="~/.nix-profile/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
 term_emacs="TERM=xterm emacsclient -nw --alternate-editor=\${term_emacs_nw}"
-alias e=${term_emacs}
 
 if hash emacsclient 2>/dev/null; then
   export EDITOR="${term_emacs}"
@@ -42,4 +42,4 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
 fi
 
 # Source local .bash_private if it exists
-[[ -f ~/.bash_private ]] && source ~/.bash_private
+[[ -f ~/.bash_private ]] && source "${HOME}/.bash_private"

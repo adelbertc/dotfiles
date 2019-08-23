@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-set -euo pipefail
-
-~/.nix-profile/Applications/Emacs.app/Contents/MacOS/Emacs --daemon
-emacsclient --create-frame $@
