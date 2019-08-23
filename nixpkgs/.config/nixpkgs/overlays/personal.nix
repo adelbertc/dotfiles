@@ -22,6 +22,25 @@ self: super: {
     emacs =
       let
         emacs = self.emacsPackagesNg.overrideScope' (eself: esuper: {
+          company-lsp = eself.melpaBuild {
+            pname = "company-lsp";
+            version = "20190525.207";
+            src = fetchGit {
+              url = "https://github.com/tigersoldier/company-lsp.git";
+              rev = "cd1a41583f2d71baef44604a14ea71f49b280bf0";
+            };
+            packageRequires = with eself; [
+              company
+              dash
+              eself.emacs
+              lsp-mode
+              s
+            ];
+            recipe = self.writeText "recipe" ''
+              (company-lsp :repo "tigersoldier/company-lsp" :fetcher github)
+            '';
+          };
+
           lsp-mode = eself.melpaBuild {
             pname = "lsp-mode";
             version = "20190606.1958";
@@ -64,22 +83,20 @@ self: super: {
             '';
           };
 
-          company-lsp = eself.melpaBuild {
-            pname = "company-lsp";
-            version = "20190525.207";
+          nix-mode = eself.melpaBuild {
+            pname = "nix-mode";
+            version = "20190703.526";
             src = fetchGit {
-              url = "https://github.com/tigersoldier/company-lsp.git";
-              rev = "cd1a41583f2d71baef44604a14ea71f49b280bf0";
+              url = "https://github.com/NixOS/nix-mode.git";
+              rev = "ddf091708b9069f1fe0979a7be4e719445eed918";
             };
             packageRequires = with eself; [
-              company
-              dash
               eself.emacs
-              lsp-mode
-              s
             ];
             recipe = self.writeText "recipe" ''
-              (company-lsp :repo "tigersoldier/company-lsp" :fetcher github)
+              (nix-mode :repo "NixOS/nix-mode" :fetcher github
+                        :files (:defaults
+                         (:exclude "nix-company.el" "nix-mode-mmm.el")))
             '';
           };
         });
