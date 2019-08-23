@@ -1,4 +1,4 @@
-PS1='\[\e[0;36m\]\w\[\e[0;32m\]$(maybeGitBranch) \[\e[0;31m\]⊢ \[\e[0m\]'
+PS1='\[\e[0;36m\]\w\[\e[0;32m\]$(maybeGitBranch) \[\e[0;31m\]☯  \[\e[0m\]'
 
 maybeGitBranch () {
   if hash __git_ps1 2>/dev/null; then
