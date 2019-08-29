@@ -150,7 +150,10 @@
 
 (use-package org
   :config
-  (setq org-hide-emphasis-markers t))
+  (setq org-hide-emphasis-markers t)
+  (custom-theme-set-faces
+   'user
+   '(fixed-pitch ((t (:family "Iosevka Term"))))))
 
 (use-package paren
   :init
