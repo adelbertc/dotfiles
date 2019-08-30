@@ -168,6 +168,8 @@ self: super: {
             company-ansible
 
             yaml-mode
+
+            groovy-mode
           ]));
         };
 
