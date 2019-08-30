@@ -3,10 +3,10 @@ self: super: {
     emacsPackagesCustom = eself: esuper: {
       company-lsp = eself.melpaBuild {
         pname = "company-lsp";
-        version = "20190525.207";
+        version = "20190612.1553";
         src = fetchGit {
           url = "https://github.com/tigersoldier/company-lsp.git";
-          rev = "cd1a41583f2d71baef44604a14ea71f49b280bf0";
+          rev = "f921ffa0cdc542c21dc3dd85f2c93df4288e83bd";
         };
         packageRequires = with eself; [
           company
@@ -22,10 +22,10 @@ self: super: {
 
       lsp-mode = eself.melpaBuild {
         pname = "lsp-mode";
-        version = "20190606.1958";
+        version = "20190828.1641";
         src = fetchGit {
           url = "https://github.com/emacs-lsp/lsp-mode.git";
-          rev = "34b769cebde2b7ba3f11230636a1fcd808551323";
+          rev = "5744a5f6ce7ff491d9fcf228a2a64eb69b802bfb";
         };
         packageRequires = with eself; [
           dash
@@ -43,10 +43,10 @@ self: super: {
 
       lsp-ui = eself.melpaBuild {
         pname = "lsp-ui";
-        version = "20190523.1521";
+        version = "20190823.541";
         src = fetchGit {
           url = "https://github.com/emacs-lsp/lsp-ui.git";
-          rev = "3ccc3e3386732c3ee22c151e6b5215a0e4c99173";
+          rev = "845fbd40f20d63b9eff592ddefeefd2263f6b27c";
         };
         packageRequires = with eself; [
           dash
