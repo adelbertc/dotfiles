@@ -40,14 +40,18 @@
 ;; Give me brace matching
 (electric-pair-mode 1)
 
-(use-package ansible)
-(use-package company-ansible)
+(use-package ansible
+  :defer t)
+
+(use-package company-ansible
+  :defer t)
 
 (use-package company
   :init
   (global-company-mode))
 
-(use-package company-lsp)
+(use-package company-lsp
+  :defer t)
 
 (use-package direnv
   :config
@@ -82,15 +86,9 @@
   (setq flycheck-executable-find
         (lambda (cmd) (direnv-update-environment default-directory) (executable-find cmd))))
 
-; (use-package haskell-interactive-mode
-;   :hook (haskell-mode . interactive-haskell-mode)
-;   :config
-;   (setq haskell-process-log t))
-
-; (use-package haskell-process)
-
 (use-package haskell
   :after (direnv)
+  :defer t
   :config
   (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(haskell-ghc haskell-stack-ghc))))
 
@@ -145,10 +143,12 @@
 (use-package mustache-mode)
 
 (use-package nix-mode
+  :defer t
   :config
   (setq-local indent-line-function 'indent-relative))
 
 (use-package org
+  :defer t
   :config
   (setq org-hide-emphasis-markers t)
   (custom-theme-set-faces
@@ -162,6 +162,7 @@
   (show-paren-mode))
 
 (use-package rust-mode
+  :defer t
   :config
   (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(rust-cargo rust rust-clippy))))
 
@@ -184,7 +185,8 @@
     'self-insert-command
     minibuffer-local-completion-map))
 
-(use-package scala-mode)
+(use-package scala-mode
+  :defer t)
 
 (use-package spaceline-config
   :init
@@ -252,6 +254,7 @@
 
 (use-package company-terraform
   :after (terraform-mode)
+  :defer t
   :config
   (company-terraform-init))
 
