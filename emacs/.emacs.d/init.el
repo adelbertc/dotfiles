@@ -40,6 +40,10 @@
 ;; Give me brace matching
 (electric-pair-mode 1)
 
+;; Line numbers
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode)
+
 (use-package ansible
   :defer t)
 
@@ -98,14 +102,6 @@
   (setq ido-everywhere t)
   :config
   (ido-mode 1))
-
-(use-package linum
-  :config
-  (global-linum-mode 1))
-
-(use-package linum-relative
-  :config
-  (linum-relative-mode))
 
 (use-package lsp-mode
   :after (direnv evil)
@@ -240,9 +236,7 @@
     ; Send the following keys directly to terminal
     ; Adapted from https://stackoverflow.com/a/34404700
     (define-key evil-insert-state-local-map (kbd "C-c") 'term-send-raw)
-    (define-key evil-insert-state-local-map (kbd "C-d") 'term-send-raw)
-    ; Hide line numbers
-    (linum-mode 0))
+    (define-key evil-insert-state-local-map (kbd "C-d") 'term-send-raw))
   (defun custom/create-term (name)
     (interactive "sEnter terminal name: ")
     (ansi-term "bash" name))

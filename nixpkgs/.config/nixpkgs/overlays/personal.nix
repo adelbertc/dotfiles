@@ -33,7 +33,6 @@ self: super: {
             # Style
             base16-theme
             diminish
-            linum-relative
             spaceline
 
             # Ergonomics
@@ -48,7 +47,6 @@ self: super: {
             use-package
 
             # Haskell
-            dante
             haskell-mode
 
             # LSP
