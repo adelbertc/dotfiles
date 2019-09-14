@@ -29,7 +29,7 @@ self: super: {
           inherit (self) coreutils direnv;
           inherit scala-metals;
 
-          emacs = emacs.emacsWithPackages (epkgs: (with epkgs; [
+          emacs = (emacs.emacsWithPackages (epkgs: (with epkgs; [
             # Style
             base16-theme
             diminish
@@ -78,7 +78,9 @@ self: super: {
             company-terraform
 
             yaml-mode
-          ]));
+          ]))).overrideAttrs (oldAttrs: {
+            name = "personal-emacs";
+          });
         };
 
     haskellTools = with self; { inherit cabal-install stack; };
