@@ -66,10 +66,10 @@
   (setq evil-want-C-u-scroll  t
         evil-want-integration t
         evil-want-keybinding  nil
-        evil-normal-state-tag  "NORMAL"
-        evil-insert-state-tag  "INSERT"
-        evil-visual-state-tag  "VISUAL"
-        evil-replace-state-tag "REPLACE")
+        evil-normal-state-tag  "N"
+        evil-insert-state-tag  "I"
+        evil-visual-state-tag  "V"
+        evil-replace-state-tag "R")
   :config
   (evil-mode 1)
   (setq x-select-enable-clipboard nil)
@@ -81,6 +81,10 @@
   :after evil
   :config
   (evil-collection-init))
+
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1))
 
 (use-package flycheck
   :init

@@ -39,6 +39,7 @@ self: super: {
             company
             evil
             evil-collection
+            evil-surround
 
             # Tooling
             direnv
