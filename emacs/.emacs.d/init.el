@@ -153,7 +153,11 @@
   (setq org-hide-emphasis-markers t)
   (custom-theme-set-faces
    'user
-   '(fixed-pitch ((t (:family "Iosevka Term"))))))
+   '(fixed-pitch ((t (:family "Iosevka Term")))))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((shell . t)
+     (python .t))))
 
 (use-package paren
   :init
