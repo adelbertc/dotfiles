@@ -1,0 +1,13 @@
+#!/bin/bash
+
+options=("${@}")
+number_of_options=${#options[@]}
+
+if [[ ${number_of_options} = 0 ]]; then
+  echo "You need at least two options bruh."
+elif [[ ${number_of_options} = 1 ]]; then
+  echo "What's the point of asking me if you only have one option?!"
+else
+  dinner=${options[${RANDOM} % ${number_of_options}]}
+  echo "${dinner} is for dinner."
+fi
