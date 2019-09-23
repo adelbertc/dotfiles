@@ -2,7 +2,7 @@ self: super: {
   personal = {
     emacs =
       let
-        emacs = self.emacsPackagesNg.overrideScope' super.personal.emacsPackagesCustom;
+        emacs = super.personal.emacsPackagesNg.overrideScope' super.personal.emacsPackagesCustom;
 
         scala-metals = self.stdenv.mkDerivation rec {
           name = "scala-metals-${version}";

@@ -157,7 +157,7 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((shell . t)
-     (python .t))))
+     (python . t))))
 
 (use-package paren
   :init
