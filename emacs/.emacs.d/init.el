@@ -140,6 +140,15 @@
     "[/\\\\]autom4te.cache$"
     "[/\\\\]\\.reference$")))
 
+(use-package magit
+  :defer t)
+
+(use-package evil-magit
+  :after magit
+  :defer t
+  :config
+  (evil-magit-init))
+
 (use-package mustache-mode)
 
 (use-package nix-mode

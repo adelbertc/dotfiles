@@ -39,11 +39,13 @@ self: super: {
             company
             evil
             evil-collection
+            evil-magit
             evil-surround
 
             # Tooling
             direnv
             flycheck
+            magit
             projectile
             use-package
 
