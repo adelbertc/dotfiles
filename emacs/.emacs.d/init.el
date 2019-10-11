@@ -58,6 +58,8 @@
   :defer t)
 
 (use-package direnv
+  :init
+  (add-hook 'prog-mode-hook #'direnv-update-environment)
   :config
   (direnv-mode))
 
@@ -106,6 +108,8 @@
   (setq ido-everywhere t)
   :config
   (ido-mode 1))
+
+(use-package json)
 
 (use-package lsp-mode
   :after (direnv evil)
@@ -175,6 +179,7 @@
   (show-paren-mode))
 
 (use-package rust-mode
+  :hook (rust-mode . lsp)
   :defer t
   :config
   (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(rust-cargo rust rust-clippy))))
@@ -183,6 +188,7 @@
   :hook ((rust-mode . cargo-minor-mode)))
 
 (use-package sbt-mode
+  :hook (scala-mode . lsp)
   :after (evil scala-mode)
   :commands sbt-start sbt-command
   :preface
@@ -199,7 +205,9 @@
     minibuffer-local-completion-map))
 
 (use-package scala-mode
-  :defer t)
+  :hook lsp
+  :defer t
+  :mode "\\.s\\(cala\\|bt\\)$")
 
 (use-package spaceline-config
   :init

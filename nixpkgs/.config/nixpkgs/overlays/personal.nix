@@ -74,6 +74,8 @@ self: super: {
 
             groovy-mode
 
+            json-mode
+
             markdown-mode
             mustache-mode
 
