@@ -31,10 +31,10 @@ self: super: {
 
       lsp-mode = eself.melpaBuild {
         pname = "lsp-mode";
-        version = "20190828.1641";
+        version = "20191016.1813";
         src = fetchGit {
           url = "https://github.com/emacs-lsp/lsp-mode.git";
-          rev = "5744a5f6ce7ff491d9fcf228a2a64eb69b802bfb";
+          rev = "df4043082a7bb778b6845d3557304c0a8fd68894";
         };
         packageRequires = with eself; [
           dash
@@ -52,10 +52,10 @@ self: super: {
 
       lsp-ui = eself.melpaBuild {
         pname = "lsp-ui";
-        version = "20190823.541";
+        version = "20191016.1644";
         src = fetchGit {
           url = "https://github.com/emacs-lsp/lsp-ui.git";
-          rev = "845fbd40f20d63b9eff592ddefeefd2263f6b27c";
+          rev = "060402eacac963fda5f241b31d4900f552207644";
         };
         packageRequires = with eself; [
           dash
@@ -73,10 +73,10 @@ self: super: {
 
       nix-mode = eself.melpaBuild {
         pname = "nix-mode";
-        version = "20190703.526";
+        version = "20190904.1440";
         src = fetchGit {
           url = "https://github.com/NixOS/nix-mode.git";
-          rev = "ddf091708b9069f1fe0979a7be4e719445eed918";
+          rev = "5b5961780f3b1c1b62453d2087f775298980f10d";
         };
         packageRequires = with eself; [
           eself.emacs
