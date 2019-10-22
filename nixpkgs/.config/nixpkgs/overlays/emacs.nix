@@ -4,7 +4,7 @@ self: super: {
       let
         pkgs = import (fetchGit {
           url = "https://github.com/NixOS/nixpkgs.git";
-          rev = "5db81b646a0d7e5f65e76793368415aac91aacaa";
+          rev = "4e6826a3b2b4e0e95d0af6ef83360962c78125cb";
         }) { };
       in
         pkgs.emacsPackagesNg;
