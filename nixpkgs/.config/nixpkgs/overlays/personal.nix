@@ -97,7 +97,7 @@ self: super: {
     tex = { inherit (self.texlive.combined) scheme-full; };
 
     tools = with self; {
-      inherit git nix-repl ripgrep shellcheck stow;
+      inherit git nix-repl ripgrep shellcheck stow tldr;
     };
   };
 }
