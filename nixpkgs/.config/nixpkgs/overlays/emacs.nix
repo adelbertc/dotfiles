@@ -4,7 +4,7 @@ self: super: {
       let
         pkgs = import (fetchGit {
           url = "https://github.com/NixOS/nixpkgs.git";
-          rev = "4e6826a3b2b4e0e95d0af6ef83360962c78125cb";
+          rev = "5f2a3bef33523086007ca6eea84183e08c3c2771";
         }) { };
       in
         pkgs.emacsPackagesNg;
@@ -31,10 +31,10 @@ self: super: {
 
       lsp-mode = eself.melpaBuild {
         pname = "lsp-mode";
-        version = "20191016.1813";
+        version = "20200217.1958";
         src = fetchGit {
           url = "https://github.com/emacs-lsp/lsp-mode.git";
-          rev = "df4043082a7bb778b6845d3557304c0a8fd68894";
+          rev = "0bfd69651ba2273469a888e4c04aea6257de1478";
         };
         packageRequires = with eself; [
           dash
@@ -52,10 +52,10 @@ self: super: {
 
       lsp-ui = eself.melpaBuild {
         pname = "lsp-ui";
-        version = "20191016.1644";
+        version = "20200217.1619";
         src = fetchGit {
           url = "https://github.com/emacs-lsp/lsp-ui.git";
-          rev = "060402eacac963fda5f241b31d4900f552207644";
+          rev = "e8200e3b72ecb203a854224eaf73a2194cb4ba46";
         };
         packageRequires = with eself; [
           dash
