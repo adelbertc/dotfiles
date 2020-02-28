@@ -72,6 +72,8 @@ self: super: {
             ansible
             company-ansible
 
+            dockerfile-mode
+
             groovy-mode
 
             json-mode
