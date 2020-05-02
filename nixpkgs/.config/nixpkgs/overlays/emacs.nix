@@ -87,6 +87,76 @@ self: super: {
                     (:exclude "nix-company.el" "nix-mode-mmm.el")))
         '';
       };
+
+      lsp-python-ms = eself.melpaBuild {
+        pname = "lsp-python-ms";
+        version = "20200501.1408";
+        src = fetchGit {
+          url = "https://github.com/emacs-lsp/lsp-python-ms.git";
+          rev = "109bc24129dc2467d9fd0ca578873b40788b5fa5";
+        };
+        packageRequires = with eself; [
+          cl-lib
+          eself.emacs
+          lsp-mode
+        ];
+        recipe = self.writeText "recipe" ''
+          (lsp-python-ms :fetcher github :repo "emacs-lsp/lsp-python-ms")
+        '';
+      };
+
+      poetry = eself.melpaBuild {
+        pname = "poetry";
+        version = "20200326.1328";
+        src = fetchGit {
+          url = "https://github.com/galaunay/poetry.el.git";
+          rev = "6dcc9d22cac6642a861770b5518398d8ee4fcc9a";
+        };
+        packageRequires = with eself; [
+          eself.emacs
+          pyvenv
+          transient
+        ];
+        recipe = self.writeText "recipe" ''
+          (poetry
+           :fetcher github
+           :repo "galaunay/poetry.el")
+        '';
+      };
+
+      rust-mode = eself.melpaBuild {
+        pname = "rust-mode";
+        version = "20200213.2007";
+        src = fetchGit {
+          url = "https://github.com/rust-lang/rust-mode.git";
+          rev = "63ec74c45231051f8bb64226d1a864f5635ac07a";
+        };
+        packageRequires = with eself; [
+          eself.emacs
+        ];
+        recipe = self.writeText "recipe" ''
+          (rust-mode :repo "rust-lang/rust-mode"
+                     :fetcher github)
+        '';
+      };
+
+      hydra = eself.melpaBuild {
+        pname = "hydra";
+        version = "20191125.955";
+        src = fetchGit {
+          url = "https://github.com/abo-abo/hydra.git";
+          rev = "d3328cab67714fbc164781d7bbe0f9d150f2e9a3";
+        };
+        packageRequires = with eself; [
+          cl-lib
+          lv
+        ];
+        recipe = self.writeText "recipe" ''
+         (hydra :repo "abo-abo/hydra"
+                :fetcher github
+                :files (:defaults (:exclude "lv.el")))
+        '';
+      };
     };
   };
 }

@@ -142,7 +142,8 @@
     "[/\\\\]\\.deps$"
     "[/\\\\]build-aux$"
     "[/\\\\]autom4te.cache$"
-    "[/\\\\]\\.reference$")))
+    "[/\\\\]\\.reference$"))
+  :commands lsp)
 
 (use-package magit
   :defer t)
@@ -177,6 +178,22 @@
   (setq-default show-paren-when-point-inside-paren t)
   :config
   (show-paren-mode))
+
+(use-package poetry
+  :preface
+  (defun poetry-pytest (folder)
+    (interactive "sEnter test folder name: ")
+    (poetry-run (concat "pytest " folder))))
+
+(use-package lsp-python-ms
+  :defer t
+  :after (direnv)
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp)
+		         (setq-local flycheck-checker 'python-mypy)))
+  :config
+  (setq lsp-python-ms-executable (getenv "MSPYLS_PATH")))
 
 (use-package rust-mode
   :hook (rust-mode . lsp)

@@ -4,6 +4,39 @@ self: super: {
       let
         emacs = super.personal.emacsPackagesNg.overrideScope' super.personal.emacsPackagesCustom;
 
+        mspyls = self.stdenv.mkDerivation rec {
+          name = "mspyls-${version}";
+          version = "0.5.30";
+
+          nupkg = "Python-Language-Server-osx-x64.${version}.nupkg";
+
+          # You can get a list of download links here:
+          # https://pvsc.blob.core.windows.net/python-language-server-stable?restype=container&comp=list&prefix=Python-Language-Server-osx-x64
+          src = self.fetchurl {
+            url = "https://pvsc.blob.core.windows.net/python-language-server-stable/${nupkg}";
+            sha256 = "0ishiy1z9dghj4ryh95vy8rw0v7q4birdga2zdb4a8am31wmp94b";
+          };
+
+          nativeBuildInputs = [ self.unzip ];
+
+          phases = "unpackPhase installPhase";
+
+          unpackPhase = ''
+            unzip $src
+          '';
+
+          installPhase = ''
+            mkdir -p $out/bin
+            cp -r * $out/bin/
+
+            mspyls_path="$out/bin/Microsoft.Python.LanguageServer"
+            chmod a+x $mspyls_path
+
+            mkdir -p $out/share/mspyls
+            echo "export MSPYLS_PATH=\"$mspyls_path\"" > $out/share/mspyls/mspyls.sh
+          '';
+        };
+
         scala-metals = self.stdenv.mkDerivation rec {
           name = "scala-metals-${version}";
           version = "0.7.6";
@@ -27,7 +60,7 @@ self: super: {
       in
         {
           inherit (self) coreutils direnv;
-          inherit scala-metals;
+          inherit mspyls scala-metals;
 
           emacs = (emacs.emacsWithPackages (epkgs: (with epkgs; [
             # Style
@@ -63,6 +96,10 @@ self: super: {
             # Rust
             cargo
             rust-mode
+
+            # Python
+            poetry
+            lsp-python-ms
 
             # Scala
             scala-mode
