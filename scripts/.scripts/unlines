@@ -1,0 +1,10 @@
+#!/bin/bash
+
+everything=""
+
+while read line
+do
+  everything+=$line
+done < "${1:-/dev/stdin}"
+
+echo $everything | tr -d '\n'
