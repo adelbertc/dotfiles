@@ -78,6 +78,7 @@ self: super: {
             # Tooling
             direnv
             flycheck
+            hydra
             magit
             projectile
             use-package
