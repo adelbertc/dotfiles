@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+
+import random
+
+def pick_random(show):
+    number_of_seasons = len(show)
+    season = random.randint(1, number_of_seasons)
+    number_of_episodes = show[season]
+    episode = random.randint(1, number_of_episodes)
+    return (season, episode)
+
+the_office = {
+    1: 6,
+    2: 22,
+    3: 25,
+    4: 19,
+    5: 28,
+    6: 26,
+    7: 26,
+    8: 24,
+    9: 25
+}
+
+parks_and_rec = {
+    1: 6,
+    2: 24,
+    3: 16,
+    4: 22,
+    5: 22,
+    6: 22,
+    7: 13
+}
+
+kims_convenience = {
+    1: 13,
+    2: 13,
+    3: 13,
+    4: 13
+}
+
+silicon_valley = {
+    1: 8,
+    2: 10,
+    3: 10,
+    4: 10,
+    5: 8,
+    6: 7
+}
+
+(office_season, office_ep) = pick_random(the_office)
+(parks_season, parks_ep) = pick_random(parks_and_rec)
+(kims_season, kims_ep) = pick_random(kims_convenience)
+(sv_season, sv_ep) = pick_random(silicon_valley)
+
+print "The Office S{}E{}".format(office_season, office_ep)
+print "Parks and Rec S{}E{}".format(parks_season, parks_ep)
+print "Kim's Convenience S{}E{}".format(kims_season, kims_ep)
+print "Silicon Valley S{}E{}".format(sv_season, sv_ep)
