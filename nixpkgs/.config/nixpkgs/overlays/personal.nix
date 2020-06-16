@@ -112,6 +112,8 @@ self: super: {
 
             dockerfile-mode
 
+            go-mode
+
             groovy-mode
 
             json-mode
