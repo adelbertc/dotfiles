@@ -110,6 +110,8 @@ self: super: {
             ansible
             company-ansible
 
+            bpftrace-mode
+
             dockerfile-mode
 
             go-mode
