@@ -17,15 +17,7 @@ export PATH=~/.scripts:$PATH
 
 [[ -d ~/.scripts/private ]] && export PATH=~/.scripts/private:$PATH
 
-alias nvim="echo 'Use emacs you coward.'"
-term_emacs="TERM=xterm emacsclient -nw --alternate-editor=\${term_emacs_nw}"
-
-if hash emacsclient 2>/dev/null; then
-  export EDITOR="${term_emacs}"
-else
-  export EDITOR=vim
-fi
-
+export EDITOR=vim
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
 set -o vi
