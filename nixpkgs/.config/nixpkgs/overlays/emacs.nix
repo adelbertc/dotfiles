@@ -4,7 +4,8 @@ self: super: {
       let
         pkgs = import (fetchGit {
           url = "https://github.com/NixOS/nixpkgs.git";
-          rev = "5f2a3bef33523086007ca6eea84183e08c3c2771";
+          rev = "ff1b66eaea4399d297abda7419a330239842d715";
+          ref = "nixpkgs-20.03-darwin";
         }) { };
       in
         pkgs.emacsPackagesNg;
@@ -31,10 +32,10 @@ self: super: {
 
       lsp-mode = eself.melpaBuild {
         pname = "lsp-mode";
-        version = "20200217.1958";
+        version = "20200703.2118";
         src = fetchGit {
           url = "https://github.com/emacs-lsp/lsp-mode.git";
-          rev = "0bfd69651ba2273469a888e4c04aea6257de1478";
+          rev = "7ce0d789a313b84ef7c1b00b63a3db4cc0959fbe";
         };
         packageRequires = with eself; [
           dash
@@ -52,10 +53,10 @@ self: super: {
 
       lsp-ui = eself.melpaBuild {
         pname = "lsp-ui";
-        version = "20200217.1619";
+        version = "20200703.448";
         src = fetchGit {
           url = "https://github.com/emacs-lsp/lsp-ui.git";
-          rev = "e8200e3b72ecb203a854224eaf73a2194cb4ba46";
+          rev = "7d5326430eb88a58e111cb22ffa42c7d131e5052";
         };
         packageRequires = with eself; [
           dash
@@ -73,10 +74,10 @@ self: super: {
 
       nix-mode = eself.melpaBuild {
         pname = "nix-mode";
-        version = "20190904.1440";
+        version = "20200521.1745";
         src = fetchGit {
           url = "https://github.com/NixOS/nix-mode.git";
-          rev = "5b5961780f3b1c1b62453d2087f775298980f10d";
+          rev = "dc298e77b68296fa76b1b80c825de2a6a3ddc969";
         };
         packageRequires = with eself; [
           eself.emacs
@@ -90,10 +91,10 @@ self: super: {
 
       lsp-python-ms = eself.melpaBuild {
         pname = "lsp-python-ms";
-        version = "20200501.1408";
+        version = "20200701.118";
         src = fetchGit {
           url = "https://github.com/emacs-lsp/lsp-python-ms.git";
-          rev = "109bc24129dc2467d9fd0ca578873b40788b5fa5";
+          rev = "268bcc7cc9f21529187aebf1bca0fc740a1486c3";
         };
         packageRequires = with eself; [
           cl-lib
@@ -107,10 +108,10 @@ self: super: {
 
       poetry = eself.melpaBuild {
         pname = "poetry";
-        version = "20200326.1328";
+        version = "20200527.948";
         src = fetchGit {
           url = "https://github.com/galaunay/poetry.el.git";
-          rev = "6dcc9d22cac6642a861770b5518398d8ee4fcc9a";
+          rev = "d876522e5af576d53c62b2838f85c9441fe62258";
         };
         packageRequires = with eself; [
           eself.emacs
@@ -126,10 +127,10 @@ self: super: {
 
       rust-mode = eself.melpaBuild {
         pname = "rust-mode";
-        version = "20200213.2007";
+        version = "20200618.1314";
         src = fetchGit {
           url = "https://github.com/rust-lang/rust-mode.git";
-          rev = "63ec74c45231051f8bb64226d1a864f5635ac07a";
+          rev = "00177f542976601d7f114fed82caaa3daad7b177";
         };
         packageRequires = with eself; [
           eself.emacs
@@ -142,10 +143,10 @@ self: super: {
 
       hydra = eself.melpaBuild {
         pname = "hydra";
-        version = "20191125.955";
+        version = "20200608.1528";
         src = fetchGit {
           url = "https://github.com/abo-abo/hydra.git";
-          rev = "d3328cab67714fbc164781d7bbe0f9d150f2e9a3";
+          rev = "8a9124f80b6919ad5288172b3e9f46c5332763ca";
         };
         packageRequires = with eself; [
           cl-lib
