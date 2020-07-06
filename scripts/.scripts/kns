@@ -1,0 +1,11 @@
+#!/bin/bash
+
+namespace=${1}
+
+if [[ ${namespace} == "show" ]]; then
+  current_context=$(cat ~/.kube/config | yq '."current-context"' -r)
+  current_namespace=$(cat ~/.kube/config | yq ".contexts[] | select(.name==\"${current_context}\") | .context.namespace" -r)
+  echo "$current_context/$current_namespace"
+else
+  kubectl config set-context --current --namespace=${namespace}
+fi
