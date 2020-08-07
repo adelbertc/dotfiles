@@ -8,7 +8,7 @@
 
 ;; Aesthetics
 (add-to-list 'default-frame-alist
-             '(font . "Iosevka Term-16"))
+             '(font . "Iosevka Term-18"))
 
 (setq frame-title-format nil)
 (set-frame-parameter (selected-frame) 'name nil)
