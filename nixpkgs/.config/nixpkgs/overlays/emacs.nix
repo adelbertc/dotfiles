@@ -4,11 +4,26 @@ self: super: {
       let
         pkgs = import (fetchGit {
           url = "https://github.com/NixOS/nixpkgs.git";
-          rev = "ff1b66eaea4399d297abda7419a330239842d715";
-          ref = "nixpkgs-20.03-darwin";
+          # Merge commit of https://github.com/NixOS/nixpkgs/pull/94637
+          rev = "6fc3562432357cdbcbb30804b47feacfac452acb";
+          # ref = "nixpkgs-20.03-darwin";
         }) { };
+
+        emacsGcc = self.emacsGcc.overrideAttrs (oldAttrs: {
+          postInstall = (oldAttrs.postInstall or "") + ''
+            ln -snf $out/lib/emacs/28.0.50/native-lisp $out/native-lisp
+            ln -snf $out/lib/emacs/28.0.50/native-lisp $out/Applications/Emacs.app/Contents/native-lisp
+            cat <<EOF> $out/bin/run-emacs.sh
+            #!/usr/bin/env bash
+            set -e
+            exec $out/bin/emacs-28.0.50 "\$@"
+            EOF
+            chmod a+x $out/bin/run-emacs.sh
+            ln -snf ./run-emacs.sh $out/bin/emacs
+          '';
+        });
       in
-        pkgs.emacsPackagesNg;
+        pkgs.emacsPackagesNgGen emacsGcc;
 
     emacsPackagesCustom = eself: esuper: {
       company-lsp = eself.melpaBuild {
