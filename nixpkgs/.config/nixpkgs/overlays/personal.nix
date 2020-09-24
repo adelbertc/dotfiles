@@ -109,23 +109,17 @@ self: super: {
             # Util
             ansible
             company-ansible
-
             bpftrace-mode
-
             dockerfile-mode
-
             go-mode
-
             groovy-mode
-
+            hcl-mode
             json-mode
-
             markdown-mode
             mustache-mode
-
+            protobuf-mode
             terraform-mode
             company-terraform
-
             yaml-mode
           ]))).overrideAttrs (oldAttrs: {
             name = "personal-emacs";
