@@ -8,7 +8,7 @@
 
 ;; Aesthetics
 (add-to-list 'default-frame-alist
-             '(font . "Iosevka Term-18"))
+             '(font . "Iosevka Term-16"))
 
 (setq frame-title-format nil)
 (set-frame-parameter (selected-frame) 'name nil)
@@ -200,6 +200,7 @@
   :defer t
   :config
   (setq-default flycheck-disabled-checkers (append flycheck-disabled-checkers '(rust-cargo rust rust-clippy))))
+  ; (setq lsp-rust-server 'rust-analyzer))
 
 (use-package cargo
   :hook ((rust-mode . cargo-minor-mode)))

@@ -2,7 +2,9 @@ self: super: {
   personal = {
     emacs =
       let
-        emacs = super.personal.emacsPackagesNg.overrideScope' super.personal.emacsPackagesCustom;
+        emacsPackagesDarwin = super.lib.dontRecurseIntoAttrs (super.emacsPackagesFor super.emacsGccDarwin);
+
+        emacs = emacsPackagesDarwin.overrideScope' super.personal.emacsPackagesCustom;
 
         mspyls = self.stdenv.mkDerivation rec {
           name = "mspyls-${version}";
@@ -60,7 +62,7 @@ self: super: {
       in
         {
           inherit (self) coreutils direnv;
-          inherit mspyls scala-metals;
+          # inherit mspyls scala-metals;
 
           emacs = (emacs.emacsWithPackages (epkgs: (with epkgs; [
             # Style

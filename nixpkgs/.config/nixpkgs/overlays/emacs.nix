@@ -2,11 +2,7 @@ self: super: {
   personal = {
     emacsPackagesNg =
       let
-        pkgs = import (fetchGit {
-          url = "https://github.com/NixOS/nixpkgs.git";
-          rev = "ff1b66eaea4399d297abda7419a330239842d715";
-          ref = "nixpkgs-20.03-darwin";
-        }) { };
+        pkgs = super.emacsGccDarwinNixpkgs;
       in
         pkgs.emacsPackagesNg;
 
