@@ -1,11 +1,90 @@
 #!/bin/bash
 
-namespace=${1}
+command=${1}
 
-if [[ ${namespace} == "show" ]]; then
-  current_context=$(cat ~/.kube/config | yq '."current-context"' -r)
-  current_namespace=$(cat ~/.kube/config | yq ".contexts[] | select(.name==\"${current_context}\") | .context.namespace" -r)
-  echo "$current_context/$current_namespace"
+function log {
+    >&2 echo "${@}"
+}
+
+function get_current_context {
+    local current_context
+    current_context=$(cat ~/.kube/config | yq '."current-context"' -r)
+    echo "${current_context}"
+}
+
+function get_current_namespace {
+    local current_context
+    current_context=$(get_current_context)
+
+    local current_namespace
+    current_namespace=$(cat ~/.kube/config | yq ".contexts[] | select(.name==\"${current_context}\") | .context.namespace" -r)
+
+    echo "${current_namespace}"
+}
+
+function get_context_folder {
+    local current_context
+    current_context=$(get_current_context)
+
+    local context_folder="${HOME}/.config/kns/${current_context}"
+    echo "${context_folder}"
+}
+
+function mk_context_folder {
+    local context_folder
+    context_folder=$(get_context_folder)
+
+    [[ ! -d "${context_folder}" ]] && mkdir -p "${context_folder}"
+    echo "${context_folder}"
+}
+
+function get_previous_namespace {
+    local context_folder
+    context_folder=$(get_context_folder)
+
+    if [[ -d "${context_folder}" ]]; then
+        cat "${context_folder}/previous_namespace"
+    else
+        log "No previous namespace for context: $(get_current_context)"
+        exit 1
+    fi
+}
+
+function set_previous_namespace {
+    local previous_namespace="${1}"
+
+    local context_folder
+    context_folder=$(mk_context_folder)
+
+    echo "${previous_namespace}" > "${context_folder}/previous_namespace"
+}
+
+if [[ ${command} == "show" ]]; then
+    current_context=$(get_current_context)
+    current_namespace=$(get_current_namespace)
+    echo "$current_context/$current_namespace"
+    echo
+    kubectl get ingress -o yaml | yq '.items[] | .spec.rules[0].host' -r
+elif [[ ${command} == "showns" ]]; then
+    get_current_namespace
+elif [[ ${command} == "prev" ]]; then
+    current_context=$(get_current_context)
+    previous_namespace=$(get_previous_namespace)
+
+    current_namespace=$(get_current_namespace)
+    set_previous_namespace "${current_namespace}"
+
+    log "Setting namespace to '${current_context}/${previous_namespace}'.."
+    kubectl config set-context --current --namespace="${previous_namespace}"
+elif [[ ${command} == "sp" ]]; then
+    current_context=$(get_current_context)
+    previous_namespace=$(get_previous_namespace)
+    echo "$current_context/$previous_namespace"
 else
-  kubectl config set-context --current --namespace=${namespace}
+    namespace="${command}"
+
+    current_namespace=$(get_current_namespace)
+    set_previous_namespace "${current_namespace}"
+
+    kubectl config set-context --current --namespace="${namespace}"
 fi
