@@ -9,6 +9,16 @@ def pick_random(show):
     episode = random.randint(1, number_of_episodes)
     return (season, episode)
 
+b99 = {
+    1: 22,
+    2: 23,
+    3: 23,
+    4: 22,
+    5: 22,
+    6: 18,
+    7: 13
+}
+
 the_office = {
     1: 6,
     2: 22,
@@ -47,11 +57,13 @@ silicon_valley = {
     6: 7
 }
 
+(b99_season, b99_ep) = pick_random(b99)
 (office_season, office_ep) = pick_random(the_office)
 (parks_season, parks_ep) = pick_random(parks_and_rec)
 (kims_season, kims_ep) = pick_random(kims_convenience)
 (sv_season, sv_ep) = pick_random(silicon_valley)
 
+print "Brooklyn 99 S{}E{}".format(b99_season, b99_ep)
 print "The Office S{}E{}".format(office_season, office_ep)
 print "Parks and Rec S{}E{}".format(parks_season, parks_ep)
 print "Kim's Convenience S{}E{}".format(kims_season, kims_ep)

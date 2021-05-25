@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+import random
+import sys
+
+# CLI arg
+x = int(sys.argv[1])
+
+# Get list of variations 1..x inclusive
+variations = range(1, x + 1)
+
+# Shuffle
+random.shuffle(variations)
+
+# Print
+print variations
