@@ -63,8 +63,6 @@ if [[ ${command} == "show" ]]; then
     current_context=$(get_current_context)
     current_namespace=$(get_current_namespace)
     echo "$current_context/$current_namespace"
-    echo
-    kubectl get ingress -o yaml | yq '.items[] | .spec.rules[0].host' -r
 elif [[ ${command} == "showns" ]]; then
     get_current_namespace
 elif [[ ${command} == "prev" ]]; then
